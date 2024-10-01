@@ -2,16 +2,16 @@ const IconIncrementCuantity = () => <svg xmlns="http://www.w3.org/2000/svg" widt
 
 const IconDecrementCuantity = () => <svg xmlns="http://www.w3.org/2000/svg" width="10" height="2" fill="none" viewBox="0 0 10 2"><path fill="#fff" d="M0 .375h10v1.25H0V.375Z" /></svg>
 
-export const Toogle = ({name, removeToCart, addToCart, cart}) => {
+export const Toogle = ({ name, removeToCart, addToCart, cart }) => {
   return (
-    <div>
-      <i onClick={() => { removeToCart(name) }}>
+    <div className="toogle cuantity__cart">
+      <i className="toogle__cuantity--plus" onClick={() => { removeToCart(name, 1) }}>
         <IconDecrementCuantity />
       </i>
-      <span>
+      <span className="toogle__cuantity">
         {cart.filter(ele => ele === name).length}
       </span>
-      <i onClick={() => { addToCart(name) }}>
+      <i className="toogle__cuantity--less" onClick={() => { addToCart(name) }}>
         <IconIncrementCuantity />
       </i>
     </div>

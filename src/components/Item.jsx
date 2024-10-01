@@ -5,7 +5,7 @@ import { Toogle } from "./Toogle"
 export const Item = ({ element, addToCart, removeToCart, cart }) => {
   const { name, image, category, price } = element 
   return (
-    <li key={name}>
+    <li key={name} className="food">
       <figure>
         <img src={image.desktop} alt={name} />
         {
@@ -14,9 +14,9 @@ export const Item = ({ element, addToCart, removeToCart, cart }) => {
             : <Toogle addToCart={addToCart} removeToCart={removeToCart} cart={cart} name={name} />
         }
       </figure>
-      <span className='category'>{category}</span>
-      <h3>{name}</h3>
-      <span className='price'>${price}</span>
+      <span className='food__category'>{category}</span>
+      <h3 className="food__name">{name}</h3>
+      <span className='food__price'>${price}</span>
     </li>
   )
 }
