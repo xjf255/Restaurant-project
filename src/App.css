@@ -39,6 +39,8 @@ aside {
   padding: 30px 20px;
   background-color: var(--rose50);
   border-radius: 10px;
+  transition: height 2.5s;
+  interpolate-size:allow-keywords;
 
   & h2{
     color: var(--red);

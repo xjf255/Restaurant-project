@@ -1,17 +1,21 @@
+import { useContext } from "react"
 import { BtnCart } from "./BtnCart"
 import { Toogle } from "./Toogle"
+import { CartContext } from "../context/cart"
 
 
-export const Item = ({ element, addToCart, removeToCart, cart }) => {
-  const { name, image, category, price } = element 
+export const Item = ({ element }) => {
+
+  const { cart } = useContext(CartContext)
+  const { name, image, category, price } = element
   return (
     <li key={name} className="food">
       <figure>
         <img src={image.desktop} alt={name} />
         {
           !cart.includes(name)
-            ? <BtnCart addToCart={addToCart} name={name} />
-            : <Toogle addToCart={addToCart} removeToCart={removeToCart} cart={cart} name={name} />
+            ? <BtnCart name={name} />
+            : <Toogle name={name} />
         }
       </figure>
       <span className='food__category'>{category}</span>
