@@ -1,6 +1,6 @@
 import { Item } from "./Item"
 
-export const Main = ({addToCart,cart,removeToCart, data}) => {
+export const Main = ({ data }) => {
   return (
     <main>
       <header>
@@ -8,7 +8,7 @@ export const Main = ({addToCart,cart,removeToCart, data}) => {
       </header>
       <ul className="dessets">
         {data.map(el =>
-          <Item element={el} addToCart={addToCart} cart={cart} removeToCart={removeToCart} key={el.name}></Item>
+          <Item element={el} key={el.name} />
         )}
       </ul>
     </main>

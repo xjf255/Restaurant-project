@@ -3,11 +3,11 @@ import { BtnCart } from "./BtnCart"
 import { Toogle } from "./Toogle"
 import { CartContext } from "../context/cart"
 
-
 export const Item = ({ element }) => {
 
   const { cart } = useContext(CartContext)
   const { name, image, category, price } = element
+
   return (
     <li key={name} className="food">
       <figure>
