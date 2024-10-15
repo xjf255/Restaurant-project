@@ -5,7 +5,7 @@ import { IconRemove } from "./Icons"
 export function ItemCart({ element }) {
   const { name, price } = element
   const { cart, removeToCart } = useContext(CartContext)
-  const cuantity = cart.filter(el => el === name).length
+  const cuantity = cart.reduce((count, el) => (el === name ? count + 1 : count), 0)
 
   const handleRemove = () => removeToCart({ item: name })
 
