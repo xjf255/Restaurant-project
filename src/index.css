@@ -15,8 +15,8 @@
   
 body {
   background-color: var(--rose100);
-  margin: 0;
   padding: 75px;
   min-width: 320px;
+  width: 100vw;
   min-height: 100vh;
 }

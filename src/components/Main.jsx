@@ -1,16 +1,16 @@
+import { Cart } from "./Cart"
 import { Item } from "./Item"
+import data from "../mocks/data.json"
 
-export const Main = ({ data }) => {
+export const Main = () => {
   return (
     <main>
-      <header>
-        <h1>Dessets</h1>
-      </header>
       <ul className="dessets">
-        {data.map(el =>
+        {data?.map(el =>
           <Item element={el} key={el.name} />
         )}
       </ul>
+      <Cart data={data} />
     </main>
   )
 }

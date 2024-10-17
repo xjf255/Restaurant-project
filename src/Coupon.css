@@ -1,0 +1,15 @@
+.coupons{
+  margin-top: 20px;
+  list-style: none;
+
+  & li{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+
+    &.coupons__title{
+      background-color: var(--rose500);
+      color: var(--rose50);
+    }
+  }
+}

@@ -1,15 +1,31 @@
 #root {
-  display: flex;
-  justify-content: center;
   gap: 50px;
   padding-top: 20px;
 }
 
-h1 {
-  padding-inline: 30px;
+.header{
+  display: flex;
+  justify-content: center;
+
+  & > a{
+    text-decoration: none;
+    margin-inline: 30px;
+    scale: 1.6;
+    color: var(--rose900);
+    font-weight: 600;
+
+    &.active{
+      border-bottom: 1px solid var(--red);
+      color: var(--rose300);
+    }
+  }
+
+  & > h1:first-child{
+    border-bottom: 2px solid var(--red);
+  }
 }
 
-ul {
+.dessets {
   display: grid;
   grid-template-columns: repeat(3, 300px);
   /* gap: 30px; */
@@ -31,6 +47,11 @@ ul {
   }
 }
 
+main{
+  display: flex;
+  justify-content: center;
+}
+
 aside {
   width: 25vw;
   min-width: 250px;
@@ -40,6 +61,7 @@ aside {
   background-color: var(--rose50);
   border-radius: 10px;
   transition: height 2.5s;
+  margin-top: 30px;
   interpolate-size:allow-keywords;
 
   & h2{
@@ -60,6 +82,7 @@ figure {
   & img {
     width: 100%;
     border-radius: 10px;
+    aspect-ratio: 502/480;
   }
 
   & .btn_addCart {
