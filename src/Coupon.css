@@ -1,15 +1,28 @@
 .coupons{
-  margin-top: 20px;
+  margin-top: 40px;
   list-style: none;
+  background-color: var(--rose50);
+  border-radius: 10px;
+  gap: 20px;
 
   & li{
     display: flex;
     justify-content: space-around;
-    padding: 10px;
+    padding: 16px 10px;
+    text-align: center;
 
     &.coupons__title{
-      background-color: var(--rose500);
-      color: var(--rose50);
+      color: var(--green);
+      border-bottom: 1px solid;
+
+      & > *{
+        width: 200px;
+      }
+    }
+
+    & > p{
+      width: 200px;
+      text-wrap: balance;
     }
   }
 }

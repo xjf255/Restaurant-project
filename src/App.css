@@ -15,8 +15,8 @@
     font-weight: 600;
 
     &.active{
-      border-bottom: 1px solid var(--red);
-      color: var(--rose300);
+      border-bottom: 1px solid var(--orange);
+      color: var(--gray-blue);
     }
   }
 

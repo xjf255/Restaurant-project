@@ -3,3 +3,7 @@ export const TITLES = [
   "Coupons",
   "Invoices"
 ]
+
+export const LOGIN = [
+  "Iniciar sesion",
+  "Registrarse"]

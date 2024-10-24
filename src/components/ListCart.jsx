@@ -2,11 +2,16 @@ import { useContext, useState, useEffect } from "react"
 import { CartContext } from "../context/cart"
 import { IconCarbonNeutral } from "./Icons"
 import { ItemCart } from "./ItemCart"
+import { ModalBuy } from "./ModalBuy"
+
 
 export function ListCart({ data }) {
 
   const [pay, setPay] = useState(0)
   const { cart } = useContext(CartContext)
+  const [statePay, setStatePay] = useState(false)
+
+
 
   useEffect(() => {
     setPay(0)
@@ -28,7 +33,8 @@ export function ListCart({ data }) {
         <IconCarbonNeutral />
         This is a <strong>carbon-neutral</strong> delivery
       </p>
-      <button className='btn--confirm'>Confirm order</button>
+      <button className='btn--confirm' onClick={() => setStatePay(!statePay)}>Confirm order</button>
+      {statePay && <ModalBuy />}
     </>
   )
 }

@@ -15,7 +15,8 @@ export default function Coupons() {
 
   const { isLoading, data: statusApi, isError } = useQuery({
     queryKey: ['status'],//key => para identificar query
-    queryFn: fetchData// function => para obtener datos
+    queryFn: fetchData,// function => para obtener datos
+    refetchOnWindowFocus: false
   })
 
   return (
@@ -34,8 +35,8 @@ export default function Coupons() {
           return (
             <li key={id_coupon}>
               <p>{cod_coupon}</p>
-              <p>{expiration_date}</p>
               <p>{name_status}</p>
+              <p>{expiration_date}</p>
             </li>
           )
         }

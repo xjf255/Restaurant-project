@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const CartContext = createContext({
   cart: [],
   removeToCart: ({ item, numItems }) => { item, numItems },
-  addToCart: ({ item}) => { item }
+  addToCart: ({ item }) => { item }
 })
 
 export const CartProvider = ({ children }) => {
@@ -19,19 +19,26 @@ export const CartProvider = ({ children }) => {
       }
       return el
     });
-    setCart([...newCart]);
+    setCart([...newCart])
+    localStorage.setItem("cart", [...newCart])
   }
 
   const addToCart = ({ item }) => {
-    setCart([...cart, item])
+    if (item && !Array.isArray(item)) {
+      const newCart = [...cart, item]
+      setCart(newCart)
+      localStorage.setItem("cart", newCart)
+    } else if (Array.isArray(item)) {
+      setCart((prevState) => prevState.concat(item))
+    }
   }
 
   return (
     <CartContext.Provider value={
-      { 
-        cart, 
-        addToCart, 
-        removeToCart 
+      {
+        cart,
+        addToCart,
+        removeToCart
       }
     }>
       {children}
