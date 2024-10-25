@@ -3,24 +3,24 @@
   padding-top: 20px;
 }
 
-.header{
+.header {
   display: flex;
   justify-content: center;
 
-  & > a{
+  &>a {
     text-decoration: none;
     margin-inline: 30px;
     scale: 1.6;
     color: var(--rose900);
     font-weight: 600;
 
-    &.active{
+    &.active {
       border-bottom: 1px solid var(--orange);
       color: var(--gray-blue);
     }
   }
 
-  & > h1:first-child{
+  &>h1:first-child {
     border-bottom: 2px solid var(--red);
   }
 }
@@ -47,7 +47,7 @@
   }
 }
 
-main{
+main {
   display: flex;
   justify-content: center;
 }
@@ -62,9 +62,9 @@ aside {
   border-radius: 10px;
   transition: height 2.5s;
   margin-top: 30px;
-  interpolate-size:allow-keywords;
+  interpolate-size: allow-keywords;
 
-  & h2{
+  & h2 {
     color: var(--red);
     font-weight: 800;
   }
@@ -118,13 +118,13 @@ button {
   justify-content: space-between;
   background-color: var(--red);
 
-    & i:hover {
-      background-color: var(--rose50);
+  & i:hover {
+    background-color: var(--rose50);
 
-      &>svg>path {
-        fill: var(--red);
-      }
+    &>svg>path {
+      fill: var(--red);
     }
+  }
 }
 
 i {
@@ -137,29 +137,30 @@ i {
   cursor: pointer;
 }
 
-.cart--empty{
+.cart--empty {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
   place-items: center;
 
-  & p{
+  & p {
     margin-top: 10px;
   }
 }
 
-.cart--items{
+.cart--items {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 6px;
   border-bottom: 1px solid var(--rose100);
 
-  & i{
+  & i {
     border-color: var(--rose300);
 
-    &:hover{
+    &:hover {
       border-color: var(--rose900);
+
       &>svg>path {
         fill: var(--rose900);
       }
@@ -172,46 +173,52 @@ i {
     margin-bottom: 10px;
   }
 
-  & .item__info{
+  & .item__info {
     display: inline-flex;
     gap: 8px;
 
-    & .cuantity{
+    & .cuantity {
       color: var(--red);
       font-weight: 600;
     }
 
-    & .unit__price{
+    & .unit__price {
       color: var(--rose500);
     }
 
-    & .total__price{
+    & .total__price {
       color: var(--rose900);
     }
   }
 }
 
-.total__pay{
+.is--error {
+  color: var(--orange);
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.total__pay {
   padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  & p.total{
+  & p.total {
     font-weight: 700;
     font-size: 32px;
     text-decoration: solid;
   }
 }
 
-.ads{
+.ads {
   background-color: var(--rose100);
   text-align: center;
   padding: 14px 10px;
   border-radius: 10px;
 }
 
-.btn--confirm{
+.btn--confirm {
   width: 100%;
   padding: 14px;
   border: none;
@@ -221,7 +228,100 @@ i {
   border-radius: 30px;
   margin-top: 20px;
 
-  &:hover{
+  &:hover {
     background-color: var(--rose500);
+  }
+}
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid;
+  border-color: var(--gray-blue) #0000;
+  animation: l1 1s infinite;
+}
+
+@keyframes l1 {
+  to {
+    transform: rotate(.5turn)
+  }
+}
+
+.shadow {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: grid;
+  place-content: center;
+  background-color: var(--shadow);
+  top: 0;
+  border: none;
+  left: 0;
+  overflow: hidden;
+
+  & .card {
+    width: 100%;
+    min-width: 350px;
+    height: 400px;
+    background-color: var(--rose50);
+    border-radius: 20px;
+    padding: 20px;
+
+    & span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px;
+
+      & h2 {
+        font-size: 30px;
+      }
+
+      & svg {
+        scale: 2;
+        rotate: 45deg;
+        cursor: pointer;
+      }
+    }
+
+    & .payment__type {
+      margin-top: 30px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      & .payment--select {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+
+        &:nth-child(3) {
+          border-block: 1px solid var(--red);
+        }
+
+        &:hover {
+          background-color: var(--red);
+          color: var(--rose50);
+        }
+      }
+    }
+
+    & .coupon {
+      margin-top: 30px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      & .coupon--selected {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+      }
+    }
   }
 }

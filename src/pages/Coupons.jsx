@@ -1,23 +1,8 @@
-import "../Coupon.css"
 import { useQuery } from "@tanstack/react-query"
+import "../Coupon.css"
 
 export default function Coupons() {
-
-  const COUPON_URL = import.meta.env.VITE_COUPON_URL
-
-  const fetchData = async () => {
-    const data = await fetch(COUPON_URL)
-    if (!data.ok) {
-      throw new Error('Error en la obtencion de datos')
-    }
-    return data.json()
-  }
-
-  const { isLoading, data: statusApi, isError } = useQuery({
-    queryKey: ['status'],//key => para identificar query
-    queryFn: fetchData,// function => para obtener datos
-    refetchOnWindowFocus: false
-  })
+  const { isLoading, data: statusApi, isError } = useQuery({ queryKey: ["coupon"] })
 
   return (
     <ul className="coupons">

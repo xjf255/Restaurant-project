@@ -1,30 +1,34 @@
 import './App.css'
 import { Header } from './components/Header'
-import { Route, Routes, useLocation } from 'react-router-dom'
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { lazy, Suspense, useState } from 'react'
+import { Loader } from './components/Loader'
+import { Toaster } from 'sonner'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 export default function App() {
 
   const Dessets = lazy(() => import('./pages/Dessets'))
   const Coupons = lazy(() => import('./pages/Coupons'))
   const Login = lazy(() => import('./pages/Login'))
+  const Invoice = lazy(() => import('./pages/Invoice'))
 
-  const [activeHeader, setActiveHeader] = useState(false)
-  const location = useLocation()
+  const [isActive, setIsActive] = useState(false)
 
-  useEffect(() => {
-    setActiveHeader(location.pathname !== '/')
-  }, [location.pathname])
   return (
     <>
-      {activeHeader && <Header />}
-      <Suspense fallback={<h1>loading...</h1>} >
+      {isActive && <Header />}
+      <Suspense fallback={<Loader />} >
         <Routes>
-          <Route path='/' element={<Login />} />
-          <Route path='/dessets' element={<Dessets />} />
-          <Route path='/coupons' element={<Coupons />} />
+          <Route path='/' element={<Login setIsActive={setIsActive} />} />
+          <Route element={<ProtectedRoutes canActive={isActive} />}>
+            <Route path='/dessets' element={<Dessets />} />
+            <Route path='/coupons' element={<Coupons />} />
+            <Route path='/invoices' element={<Invoice />} />
+          </Route>
         </Routes>
       </Suspense>
+      <Toaster richColors />
     </>
   )
 }

@@ -13,6 +13,7 @@
   --rose900: hsl(14, 65%, 9%);
   --orange: hsl(12deg 100% 52.41%);
   --gray-blue:hsl(180deg 100% 17.39%);
+  --shadow : hsl(0deg 0% 0% / 45%);
 }
   
 body {

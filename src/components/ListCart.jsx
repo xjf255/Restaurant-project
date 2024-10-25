@@ -11,8 +11,6 @@ export function ListCart({ data }) {
   const { cart } = useContext(CartContext)
   const [statePay, setStatePay] = useState(false)
 
-
-
   useEffect(() => {
     setPay(0)
     data.map(el => {
@@ -21,6 +19,12 @@ export function ListCart({ data }) {
       }
     })
   }, [cart])
+
+  const handleClick = (e) => {
+    if (e.target.matches("dialog.shadow") || e.target.matches("svg") || e.target.matches("path")) {
+      setStatePay(false)
+    }
+  }
 
   return (
     <>
@@ -33,8 +37,8 @@ export function ListCart({ data }) {
         <IconCarbonNeutral />
         This is a <strong>carbon-neutral</strong> delivery
       </p>
-      <button className='btn--confirm' onClick={() => setStatePay(!statePay)}>Confirm order</button>
-      {statePay && <ModalBuy />}
+      <button className='btn--confirm' onClick={() => setStatePay(true)}>Confirm order</button>
+      {statePay && <ModalBuy handleClick={handleClick} />}
     </>
   )
 }
