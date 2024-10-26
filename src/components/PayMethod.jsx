@@ -7,7 +7,7 @@ export const PayMethod = ({fn}) => {
 
   return (
     <section className="payment__type">
-      {!isError && <p>Select your method:</p>}
+      {!isError && <p className="title">Select your method:</p>}
       {data && data.map((el) => {
         const { codMethod, name, active } = el
         if (!active) return null

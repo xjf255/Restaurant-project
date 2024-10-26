@@ -38,7 +38,7 @@ export function ListCart({ data }) {
         This is a <strong>carbon-neutral</strong> delivery
       </p>
       <button className='btn--confirm' onClick={() => setStatePay(true)}>Confirm order</button>
-      {statePay && <ModalBuy handleClick={handleClick} />}
+      {statePay && <ModalBuy handleClick={handleClick} pay ={pay}/>}
     </>
   )
 }

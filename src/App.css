@@ -297,6 +297,8 @@ i {
         padding: 10px;
         text-align: center;
         cursor: pointer;
+        color: var(--gray-blue);
+
 
         &:nth-child(3) {
           border-block: 1px solid var(--red);
@@ -317,11 +319,61 @@ i {
       flex-direction: column;
 
       & .coupon--selected {
+        color: var(--gray-blue);
         width: 100%;
         padding: 10px;
         text-align: center;
         cursor: pointer;
       }
+
+      & .next {
+        background-color: var(--red);
+        color: var(--rose50);
+        border-radius: 10px;
+        margin-top: 20px;
+      }
+    }
+
+    & .title {
+      font-weight: 600;
+      scale: 1.4;
+      margin-bottom: 10px;
+    }
+  }
+
+  form.pay{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    padding: 12px;
+
+    & label{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      & input{
+        padding: 10px;
+        border-radius: 10px;
+        outline: var(--orange);
+        border-style: none;
+        background-color: var(--rose100);
+
+        &.date{
+          width: 50%;
+        }
+      }
+    }
+
+    & button{
+      padding: 14px;
+      border: none;
+      background-color: var(--green);
+      color: var(--rose50);
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 10px;
     }
   }
 }

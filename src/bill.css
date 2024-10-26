@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+  margin-top: 45px;
+  text-align: center;
+  border-style: hidden;
+}
+
+th {
+  padding: 6px;
+  background-color: var(--gray-blue);
+  color: var(--rose50);
+}
+
+tr {
+  background-color: var(--rose50);
+}

@@ -12,18 +12,19 @@ export const SignIn = ({ changeIsActive }) => {
   }
 
   const signInClick = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // quitar el evento por defecto
     const form = new FormData(formRef.current);
     const email = form.get("email");
     const pass = form.get("password");
     if (email && email.trim() !== '' && pass && pass.trim() !== '') {
       if (!validateEmail(email)) return toast.error("email not valid")
+        //http://20.121.130.161/grupo1/api/usuarios/login?contrasena=prueba1234&correo=Marc.43%40gmail.com
       const URL = `http://20.121.130.161/grupo1/api/usuarios/login?contrasena=${pass}&correo=${email}`;
       const fetchData = async () => {
         try {
           const response = await fetch(URL);
           if (!response.ok) {
-            throw new Error('Error en la obtencion de datos');
+            throw new Error('Usuario no encontrado');
           }
           changeIsActive(true)
           navigate('/dessets');
