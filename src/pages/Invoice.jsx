@@ -2,11 +2,7 @@ import "../bill.css"
 import { useQuery } from "@tanstack/react-query"
 
 export default function Invoice() {
-
   const { data } = useQuery({ queryKey: ["bill"] })
-
-  console.log(data)
-
 
   return (
     <>

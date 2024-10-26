@@ -12,7 +12,6 @@ export default function useFetchAPI({ api, key }) {
   const { isLoading, data, isError } = useQuery({
     queryKey: [key],//key => para identificar query
     queryFn: fetchData,// function => para obtener datos
-    refetchOnWindowFocus: false
   })
 
   return { isLoading, data, isError }
