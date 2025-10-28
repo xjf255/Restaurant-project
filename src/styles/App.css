@@ -45,8 +45,9 @@
     right: 0;
     top: 0;
 
-    & button {
+    & .register {
       width: 120px;
+      text-decoration: none;
       padding: 12px;
       font-size: 16px;
       font-weight: 600;
@@ -57,6 +58,22 @@
     }
   }
 
+}
+
+.btn__cliente{
+  width: 200px;
+  text-decoration: none;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--green);
+  background-color: var(--green);
+  color: var(--rose50);
 }
 
 .dessets {
@@ -410,4 +427,70 @@ i {
       border-radius: 10px;
     }
   }
+}
+
+/* auth admin */
+.authAdmin {
+  width: min(92vw, 420px);
+  margin: 48px auto;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+.authAdmin__title {
+  margin: 0 0 12px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.authAdmin__label {
+  display: block;
+  margin-bottom: 12px;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.authAdmin__input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.authAdmin__input:focus {
+  border-color: #f97316; /* naranja */
+  box-shadow: 0 0 0 3px rgba(249,115,22,.2);
+}
+
+.authAdmin__error {
+  color: #dc2626;
+  font-size: 0.9rem;
+  margin: 6px 0 4px;
+}
+
+.authAdmin__btn,
+.authAdmin__logoutBtn {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  background: #f97316;
+  transition: opacity .15s, transform .05s;
+  margin-top: 6px;
+}
+
+.authAdmin__btn:hover,
+.authAdmin__logoutBtn:hover {
+  opacity: .9;
+  transform: translateY(-1px);
 }

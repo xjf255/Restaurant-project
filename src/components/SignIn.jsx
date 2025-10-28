@@ -1,43 +1,44 @@
-import { useRef } from "react"
-import { toast } from "sonner"
+import { useContext, useRef } from "react"
+import { toast, Toaster } from "sonner"
 import { useNavigate } from "react-router-dom"
 import { validateEmail } from "../services/valideteEmail"
+import { UserContext } from "../context/user"
 
-export const SignIn = ({ changeIsActive }) => {
+export const SignIn = () => {
+  const { addClient } = useContext(UserContext)
   const formRef = useRef()
+  const URL_CLIENT = import.meta.env.VITE_USER_URL
   const navigate = useNavigate()
 
   const forgotPasswordClick = () => {
-    alert("This is experimental")
+    navigate('/');
+    toast.info("Lastimadamente no contamos con un sistema de recuperacion")
   }
 
   const signInClick = (e) => {
-    e.preventDefault(); // quitar el evento por defecto
-    changeIsActive(true)
-    navigate('/promocines');
-    // const form = new FormData(formRef.current);
-    // const email = form.get("email");
-    // const pass = form.get("password");
-    // if (email && email.trim() !== '' && pass && pass.trim() !== '') {
-    //   if (!validateEmail(email)) return toast.error("email not valid")
-    //   const URL = `http://20.121.130.161/grupo1/api/usuarios/login?contrasena=${pass}&correo=${email}`;
-    //   const fetchData = async () => {
-    //     try {
-    //       const response = await fetch(URL);
-    //       if (!response.ok) {
-    //         throw new Error('Usuario no encontrado');
-    //       }
-    //       changeIsActive(true)
-    //       navigate('/dessets');
-    //     } catch (error) {
-    //       formRef.current.reset()
-    //       toast.error(error.message);
-    //     }
-    //   };
-    //   fetchData();
-    // } else {
-    //   toast.warning("Llene todos los campos");
-    // }
+    e.preventDefault();
+    const form = new FormData(formRef.current);
+    const ide = form.get("identificacion")
+    if (ide && ide.trim() !== '') {
+      const URL = `${URL_CLIENT}/${ide.trim()}`;
+      const fetchData = async () => {
+        try {
+          const response = await fetch(URL);
+          if (!response.ok) {
+            throw new Error('Usuario no encontrado');
+          }
+          const user = await response.json();
+          addClient(user);
+          toast.success(`Bienvenid@ ${user.nombre} ${user.apellido}`);
+          navigate('/promociones');
+        } catch (error) {
+          toast.error(error.message);
+        }
+      };
+      fetchData();
+    } else {
+      toast.warning("Llene todos los campos");
+    }
   };
 
 
@@ -45,19 +46,15 @@ export const SignIn = ({ changeIsActive }) => {
     <>
       <form ref={formRef}>
         <label>
-          Email
-          <input type="text" name="email" placeholder="Ingrese su correo..." value={undefined} />
-        </label>
-        <label>
-          Password
-          <input type="password" name="password" placeholder="Ingrese su contraseña..." value={undefined} />
+          Dpi | CUI
+          <input type="text" name="identificacion" placeholder="Ingrese su identificacion..." value={undefined} />
         </label>
         <button type="submit" onClick={signInClick}>
           Sign in
         </button>
       </form>
       <span onClick={forgotPasswordClick}>
-        <p className="password--recover">forgot password?</p>
+        <p className="password--recover">Olvidaste tu Identificador?</p>
       </span>
     </>
   )

@@ -1,0 +1,201 @@
+.modalBuy {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 999;
+}
+
+.modalBuy__container {
+  background: #fff;
+  border-radius: 1.25rem;
+  width: min(92vw, 560px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  animation: modalBuyFadeIn 0.25s ease-out;
+}
+
+@keyframes modalBuyFadeIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modalBuy__header {
+  margin-bottom: 1rem;
+}
+
+.modalBuy__title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.modalBuy__subtitle {
+  color: #4b5563;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.modalBuy__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.modalBuy__fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modalBuy__legend {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.modalBuy__option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #374151;
+  margin-top: 0.4rem;
+}
+
+.modalBuy__accountAddress {
+  margin-left: 1.5rem;
+  border-left: 2px solid #e5e7eb;
+  padding-left: 0.75rem;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.modalBuy__noAddress {
+  margin-left: 1.5rem;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+.modalBuy__extraFields {
+  margin-left: 1.5rem;
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modalBuy__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalBuy__label {
+  font-size: 0.85rem;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.modalBuy__input {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modalBuy__input:focus {
+  border-color: hsl(12, 100%, 52%);
+  box-shadow: 0 0 0 3px hsl(12, 100%, 52%, 0.2);
+}
+
+.modalBuy__summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1rem;
+}
+
+.modalBuy__payment p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+.modalBuy__payment-method {
+  font-weight: 500;
+  color: #111827;
+}
+
+.modalBuy__total {
+  text-align: right;
+}
+
+.modalBuy__total-label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.modalBuy__total-amount {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.modalBuy__confirmBtn {
+  background-color: hsl(12, 100%, 52%);
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.modalBuy__confirmBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.modalBuy__confirmBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .modalBuy__container {
+    padding: 1rem;
+  }
+
+  .modalBuy__title {
+    font-size: 1.1rem;
+  }
+
+  .modalBuy__total-amount {
+    font-size: 1.25rem;
+  }
+}

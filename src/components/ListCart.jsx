@@ -3,9 +3,13 @@ import { useContext, useMemo, useState } from "react";
 import { CartContext } from "../context/cart";
 import { ItemCart } from "./ItemCart";
 import { ModalBuy } from "./ModalBuy";
+import { UserContext } from "../context/user";
+import { useNavigate } from "react-router-dom";
 
 export function ListCart() {
   const { cart, catalog } = useContext(CartContext);
+  const { client } = useContext(UserContext)
+  const navigate = useNavigate()
   const [statePay, setStatePay] = useState(false);
 
   const uniqueKeys = useMemo(() => Array.from(new Set(cart)), [cart]);
@@ -25,6 +29,14 @@ export function ListCart() {
     }
   };
 
+  const handleClickNotClient = () => {
+    if (client !== null) {
+      setStatePay(true);
+      return
+    }
+    navigate("/registration")
+  }
+
   return (
     <>
       {matched.map(({ key, meta }) => (
@@ -36,7 +48,7 @@ export function ListCart() {
         <p className="total">${totalPay.toFixed(2)}</p>
       </span>
 
-      <button className="btn--confirm" onClick={() => setStatePay(true)} disabled={matched.length === 0}>
+      <button className="btn--confirm" onClick={handleClickNotClient}>
         Confirm order
       </button>
 

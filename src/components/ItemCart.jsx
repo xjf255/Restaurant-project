@@ -10,8 +10,6 @@ export function ItemCart({ element, itemId }) {
     return cart.filter(cartItem => cartItem === itemId).length
   }, [cart, itemId])
 
-  console.log(quantity)
-
   const handleRemove = () => {
     removeFromCart({ item: itemId })
   }

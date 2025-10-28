@@ -1,72 +1,155 @@
-import { useRef } from "react";
-import { useNavigate } from "react-router-dom"
+import { useContext, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { validateEmail } from "../services/valideteEmail";
+import { UserContext } from "../context/user";
 
-export const Register = ({changeIsActive}) => {
+const isLetters = (v) => /^[A-Za-zÀ-ÿ\s'.-]{2,}$/.test(v.trim());
+const isDPI = (v) => /^\d{13}$/.test(v.trim());
+const isPhone = (v) => /^\d{8}$/.test(v.trim());
+const isPrefix = (v) => /^\+\d{1,4}$/.test(v.trim());
+const isAddress = (v) => v.trim().length >= 5;
+const isNIT = (v) => /^\d{1,12}-?[0-9K]$/i.test(v.trim());
 
-  const navigate = useNavigate()
-  const formRef = useRef()
+export const Register = () => {
+  const { addClient } = useContext(UserContext);
+  const navigate = useNavigate();
+  const formRef = useRef < HTMLFormElement > (null);
   const URL = import.meta.env.VITE_USER_URL;
+  const [loading, setLoading] = useState(false);
 
   const registerClick = (e) => {
     e.preventDefault();
+    if (loading) return;
+
     const form = new FormData(formRef.current);
-    const email = form.get("email");
-    const pass = form.get("password");
-    const name = form.get("name");
-    if (email && email.trim() !== '' && pass && pass.trim() !== '' && name && name.trim() !== '') {
-      if (!validateEmail(email)) return toast.error("email not valid")
-      const fetchData = async () => {
-        try {
-          const response = await fetch(URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              "activo": true,
-              "contrasena": pass,
-              "correo": email,
-              "id": "",
-              "nombre": name,
-              "rol": {
-                "idRol": 2
-              }
-            })
-          });
-          if (!response.ok) {
-            throw new Error('Error en la creación del usuario');
-          }
-          changeIsActive(true)
-          navigate('/dessets');
-        } catch (error) {
-          toast.error(error.message);
-        }
-      };
-      fetchData();
-    } else {
-      toast.warning("Llene todos los campos");
+
+    const payload = {
+      dpi: String(form.get("dpi") || "").replace(/\D/g, ""),
+      nombre: String(form.get("nombre") || "").trim(),
+      apellido: String(form.get("apellido") || "").trim(),
+      direccion: String(form.get("direccion") || "").trim(),
+      telefono: String(form.get("telefono") || "").replace(/\D/g, ""),
+      prefijoTelefono: String(form.get("prefijoTelefono") || "").trim(),
+      Email: String(form.get("email") || "").trim(),
+      nit: String(form.get("nit") || "").toUpperCase().trim(),
+      password: String(form.get("password") || "").trim(),
+    };
+
+    if (!payload.dpi || !payload.nombre || !payload.apellido || !payload.direccion ||
+      !payload.telefono || !payload.prefijoTelefono || !payload.Email ||
+      !payload.nit || !payload.password) {
+      return toast.warning("Completa todos los campos obligatorios.");
     }
+
+    if (!isDPI(payload.dpi)) {
+      return toast.error("DPI inválido. Debe tener 13 dígitos.");
+    }
+    if (!isLetters(payload.nombre)) {
+      return toast.error("Nombre inválido. Usa solo letras y mínimo 2 caracteres.");
+    }
+    if (!isLetters(payload.apellido)) {
+      return toast.error("Apellido inválido. Usa solo letras y mínimo 2 caracteres.");
+    }
+    if (!isAddress(payload.direccion)) {
+      return toast.error("Dirección inválida. Mínimo 5 caracteres.");
+    }
+    if (!isPrefix(payload.prefijoTelefono)) {
+      return toast.error("Prefijo inválido. Ejemplo: +502");
+    }
+    if (!isPhone(payload.telefono)) {
+      return toast.error("Teléfono inválido. Debe tener 8 dígitos.");
+    }
+    if (!validateEmail(payload.Email)) {
+      return toast.error("Email no válido.");
+    }
+    if (!isNIT(payload.nit)) {
+      return toast.error("NIT inválido. Ej: 1234567-8 o 1234567K");
+    }
+    if (payload.password.length < 6) {
+      return toast.error("La contraseña debe tener al menos 6 caracteres.");
+    }
+
+    const body = {
+      dpi: payload.dpi,
+      nombre: payload.nombre,
+      apellido: payload.apellido,
+      direccion: payload.direccion,
+      telefono: payload.telefono,
+      prefijoTelefono: payload.prefijoTelefono,
+      correo: payload.Email,
+      nit: payload.nit,
+    };
+
+    const submit = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok) throw new Error("Error en la creación del usuario");
+
+        toast.success("Usuario creado con éxito");
+        const user = await res.json();
+        addClient(user);
+        navigate("/promociones");
+      } catch (err) {
+        toast.error(err?.message || "No se pudo registrar");
+      } finally {
+        setLoading(false);
+      }
+    };
+    submit();
   };
 
   return (
-    <form ref={formRef}>
-      <label >
-        Nombre
-        <input type="text" placeholder="Ingrese su nombre..." name="name" />
-      </label>
+    <form ref={formRef} autoComplete="on" noValidate>
       <label>
-        Email
-        <input type="text" placeholder="Ingrese su correo..." name="email" />
+        DPI*
+        <input type="text" inputMode="numeric" name="dpi" placeholder="0000000000000" maxLength={13} />
       </label>
+
       <label>
-        Password
-        <input type="password" placeholder="Ingrese su contraseña..." name="password" />
+        Nombre*
+        <input type="text" name="nombre" placeholder="Ingrese su nombre..." />
       </label>
-      <button type="submit" onClick={registerClick}>
-        Register
+
+      <label>
+        Apellido*
+        <input type="text" name="apellido" placeholder="Ingrese su apellido..." />
+      </label>
+
+      <label>
+        Dirección*
+        <input type="text" name="direccion" placeholder="Calle/Avenida, zona..." />
+      </label>
+
+      <div style={{ display: "grid", gridTemplateColumns: "110px 1fr", gap: "8px" }}>
+        <label>
+          Prefijo*
+          <input type="text" name="prefijoTelefono" defaultValue="+502" placeholder="+502" />
+        </label>
+        <label>
+          Teléfono*
+          <input type="text" inputMode="numeric" name="telefono" placeholder="12345678" maxLength={8} />
+        </label>
+      </div>
+
+      <label>
+        Email*
+        <input type="email" name="email" placeholder="usuario@correo.com" />
+      </label>
+
+      <label>
+        NIT*
+        <input type="text" name="nit" placeholder="1234567-8 / 1234567K" />
+      </label>
+
+      <button type="submit" onClick={registerClick} disabled={loading}>
+        {loading ? "Registrando..." : "Register"}
       </button>
     </form>
-  )
-}
+  );
+};

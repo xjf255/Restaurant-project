@@ -1,12 +1,12 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useMemo, useState } from "react";
 
 export const CartContext = createContext({
   cart: [],
   catalog: {},
-  upsertCatalog: () => {},
-  addToCart: () => {},
-  removeFromCart: () => {},
-  clearCart: () => {},
+  upsertCatalog: () => { },
+  addToCart: () => { },
+  removeFromCart: () => { },
+  clearCart: () => { },
   getCartTotal: () => 0,
 });
 
@@ -72,9 +72,9 @@ export const CartProvider = ({ children }) => {
 
         const viejo = prev[key];
         if (!viejo ||
-            viejo.costo !== nuevo.costo ||
-            viejo.nombre !== nuevo.nombre ||
-            viejo.img !== nuevo.img) {
+          viejo.costo !== nuevo.costo ||
+          viejo.nombre !== nuevo.nombre ||
+          viejo.img !== nuevo.img) {
           next[key] = nuevo;
           changed = true;
         }

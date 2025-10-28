@@ -14,7 +14,7 @@ export default function MenuSection() {
   const { upsertCatalog } = useContext(CartContext)
 
   useEffect(() => {
-    if (data.length > 0) {
+    if (Array.isArray(data) && data.length > 0) {
       upsertCatalog(data)
     }
   }, [data])

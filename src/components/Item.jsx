@@ -5,7 +5,6 @@ import { CartContext } from "../context/cart"
 
 export const Item = ({ element }) => {
   const { cart } = useContext(CartContext)
-
   const {
     nombre = "Sin nombre",
     img,
@@ -19,17 +18,12 @@ export const Item = ({ element }) => {
   } = element
 
   if (!existencia || diasDisponibles === "0") return null
-
   let displayName = cantidad !== "0" ? `${nombre} ${cantidad}` : nombre
 
   if (nombre === "Sin nombre" && cantidad === "0") {
     displayName = descripcion
   }
-
   const itemKey = numPromocion || numCombo || displayName.trim().toLowerCase()
-
-  console.log(cart)
-
   const isInCart = cart.some((cartItem) => cartItem === itemKey)
 
   return (

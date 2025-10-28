@@ -4,7 +4,7 @@ import { LOGIN } from "../constants"
 import { SignIn } from "../components/SignIn"
 import { Register } from "../components/Register"
 
-export default function Login({setIsActive}) {
+export default function Login() {
 
   const [type, setType] = useState(LOGIN[0])
 
@@ -18,7 +18,7 @@ export default function Login({setIsActive}) {
         <div className="form__toogle">
           {LOGIN.map(el => <button key={el} onClick={() => handleClick(el)} className={type === el ? "active" : ""} >{el}</button>)}
         </div>
-        {type === LOGIN[0] ? <SignIn changeIsActive={setIsActive}/> : <Register changeIsActive={setIsActive}/>}
+        {type === LOGIN[0] ? <SignIn/> : <Register/>}
       </div>
     </section>
   )
