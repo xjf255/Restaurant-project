@@ -9,10 +9,12 @@ export default function useFetchAPI({ api, key }) {
     return data.json()
   }
 
-  const { isLoading, data, isError } = useQuery({
-    queryKey: [key],//key => para identificar query
-    queryFn: fetchData,// function => para obtener datos
+  const { isLoading, data, isError, isFetching } = useQuery({
+    queryKey: ["API", key, api],
+    queryFn: fetchData,
+    keepPreviousData: false,
+    staleTime: 0
   })
 
-  return { isLoading, data, isError }
+  return { isLoading, data, isError, isFetching }
 }

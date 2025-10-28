@@ -44,9 +44,9 @@ export const Item = ({ element }) => {
           }}
         />
         {isInCart ? (
-          <Toogle item={itemKey} nombre={displayName} />
+          <Toogle item={itemKey} />
         ) : (
-          <BtnCart item={itemKey} nombre={displayName} />
+          <BtnCart item={itemKey} />
         )}
       </figure>
 

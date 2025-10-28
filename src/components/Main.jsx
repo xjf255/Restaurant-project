@@ -9,7 +9,7 @@ export const Main = ({ data }) => {
           <Item element={el} key={el.nombre} />
         )}
       </ul>
-      <Cart data={data} />
+      <Cart />
     </main>
   )
 }

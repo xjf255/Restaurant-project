@@ -4,7 +4,7 @@ import { IconDecrementCuantity, IconIncrementCuantity } from "./Icons"
 
 export const Toogle = ({ item, nombre }) => {
   const { addToCart, removeFromCart, cart } = useContext(CartContext)
-  const itemCount = cart.filter(cartItem => cartItem.id === item).length
+  const itemCount = cart.filter(cartItem => cartItem === item).length
 
   return (
     <div className="toogle cuantity__cart">
@@ -19,7 +19,7 @@ export const Toogle = ({ item, nombre }) => {
       </span>
       <i 
         className="toogle__cuantity--less" 
-        onClick={() => addToCart({ item, nombre })}
+        onClick={() => addToCart({ item })}
       >
         <IconIncrementCuantity />
       </i>

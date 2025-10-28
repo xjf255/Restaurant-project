@@ -11,6 +11,11 @@ export const Header = () => {
           <NavLink className="title" to={`/${title.toLocaleLowerCase()}`} key={title}>{title}</NavLink>
         )}
       </header>
+
+      <div className="register__container">
+        <button className="register">Registrarse</button>
+      </div>
+
     </section>
   )
 }
