@@ -1,6 +1,6 @@
-import './App.css'
+import './styles/App.css'
 import { Header } from './components/Header'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { lazy, Suspense, useState } from 'react'
 import { Loader } from './components/Loader'
 import { Toaster } from 'sonner'
@@ -17,14 +17,17 @@ export default function App() {
 
   return (
     <>
-      {isActive && <Header />}
+      {!isActive && <Header />}
       <Suspense fallback={<Loader />} >
         <Routes>
-          <Route path='/' element={<Login setIsActive={setIsActive} />} />
+          <Route path='/' element={<Navigate to={"Promociones"}/>} />
+          <Route path='/promociones' element={<Dessets />} />
+          <Route path='/combos' element={<Dessets />} />
+          <Route path='/hamburguesas' element={<Dessets />} />
+          <Route path='/bebidas' element={<Dessets />} />
+          <Route path='/extras' element={<Dessets />} />
           <Route element={<ProtectedRoutes canActive={isActive} />}>
-            <Route path='/dessets' element={<Dessets />} />
-            <Route path='/coupons' element={<Coupons />} />
-            <Route path='/invoices' element={<Invoice />} />
+            <Route path='/dashboard' element={<Coupons />} />
           </Route>
         </Routes>
       </Suspense>

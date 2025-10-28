@@ -1,11 +1,26 @@
 #root {
   gap: 50px;
-  padding-top: 20px;
+}
+
+.banner {
+  width: 400px;
+  border-radius: 10px;
+}
+
+.header__container {
+  background-color: var(--rose100);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-around;
 }
 
 .header {
+  height: 50px;
   display: flex;
-  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-around;
 
   &>a {
     text-decoration: none;
@@ -341,32 +356,32 @@ i {
     }
   }
 
-  form.pay{
+  form.pay {
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 10px;
     padding: 12px;
 
-    & label{
+    & label {
       display: flex;
       flex-direction: column;
       gap: 10px;
 
-      & input{
+      & input {
         padding: 10px;
         border-radius: 10px;
         outline: var(--orange);
         border-style: none;
         background-color: var(--rose100);
 
-        &.date{
+        &.date {
           width: 50%;
         }
       }
     }
 
-    & button{
+    & button {
       padding: 14px;
       border: none;
       background-color: var(--green);

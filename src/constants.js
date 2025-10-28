@@ -1,7 +1,9 @@
 export const TITLES = [
-  "Dessets",
-  "Coupons",
-  "Invoices"
+  "Promociones",
+  "Combos",
+  "Hamburguesas",
+  "Bebidas",
+  "Extras"
 ]
 
 export const LOGIN = [

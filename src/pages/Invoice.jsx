@@ -1,4 +1,4 @@
-import "../bill.css"
+import "../styles/bill.css"
 import { useQuery } from "@tanstack/react-query"
 
 export default function Invoice() {

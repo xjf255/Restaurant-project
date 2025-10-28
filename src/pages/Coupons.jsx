@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import "../Coupon.css"
+import "../styles/Coupon.css"
 
 export default function Coupons() {
   const { isLoading, data: statusApi, isError } = useQuery({ queryKey: ["coupon"] })
