@@ -1,27 +1,32 @@
-import { useContext } from "react"
+import { useContext, useMemo } from "react"
 import { CartContext } from "../context/cart"
 import { IconRemove } from "./Icons"
 
-export function ItemCart({ element }) {
+export function ItemCart({ element, itemId }) {
   const { name, price } = element
-  const { cart, removeToCart } = useContext(CartContext)
-  console.log({ cart, name })
-  const cuantity = cart.reduce((count, el) => (el === name ? count + 1 : count), 0)
+  const { cart, removeFromCart } = useContext(CartContext)
+  
+  const quantity = useMemo(() => {
+    return cart.filter(cartItem => cartItem.id === itemId).length
+  }, [cart, itemId])
 
-  const handleRemove = () => removeToCart({ item: name })
-
+  const handleRemove = () => {
+    removeFromCart({ item: itemId })
+  }
 
   return (
     <div className='cart--items'>
       <div>
         <h3>{name}</h3>
         <span className='item__info'>
-          <p className="cuantity">{cuantity}x</p>
-          <p className="unit__price">@${price}</p>
-          <p className="total__price">${price * cuantity}</p>
+          <p className="cuantity">{quantity}x</p>
+          <p className="unit__price">@${price.toFixed(2)}</p>
+          <p className="total__price">${(price * quantity).toFixed(2)}</p>
         </span>
       </div>
-      <i onClick={handleRemove} ><IconRemove /></i>
-    </ div>
+      <i onClick={handleRemove} style={{ cursor: 'pointer' }}>
+        <IconRemove />
+      </i>
+    </div>
   )
 }
