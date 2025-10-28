@@ -1,3 +1,4 @@
+import { Item } from "../components/Item"
 import { Main } from "../components/Main"
 import { CartProvider } from "../context/cart"
 import useFetchAPI from "../hooks/useAPI"
@@ -5,7 +6,7 @@ import useFetchAPI from "../hooks/useAPI"
 export default function Dessets() {
 
   const API_URL = import.meta.env.VITE_API_URL
-  let path = window.location.pathname
+  let path = window.location.pathname.toLocaleLowerCase()
 
   path = path === "/extras" ? "/complementos" : path
 
@@ -17,7 +18,11 @@ export default function Dessets() {
     <CartProvider>
       {isLoading && <p>Loading...</p>}
       {errorCoupon && <p>Ha habido un error</p>}
-      {data && <Main data={data} />}
+      {data && data.length > 0 ? (
+        <Main data={data} />
+      ) : (
+        <p>No hay elementos para mostrar.</p>
+      )}
     </CartProvider>
   )
 }

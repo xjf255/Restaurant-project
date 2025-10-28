@@ -1,47 +1,36 @@
-import { useContext } from "react";
-import { BtnCart } from "./BtnCart";
-import { Toogle } from "./Toogle";
-import { CartContext } from "../context/cart";
+import { useContext } from "react"
+import { BtnCart } from "./BtnCart"
+import { Toogle } from "./Toogle"
+import { CartContext } from "../context/cart"
 
 export const Item = ({ element }) => {
-  const { cart } = useContext(CartContext);
+  const { cart } = useContext(CartContext)
 
-  // Desestructuración con valores por defecto
   const {
     nombre = "Sin nombre",
-    img = "/placeholder.jpg",
-    costo = 0,
+    img,
+    costo,
     existencia = true,
-    cantidad = "",
+    cantidad = "0",
+    diasDisponibles = "1",
     descripcion = "Sin descripción",
     numCombo,
     numPromocion,
-  } = element;
+  } = element
 
-  // Si no existe, no renderizar
-  if (!existencia) return null;
+  if (!existencia || diasDisponibles === "0") return null
 
-  // === Construcción de clave única (itemKey) ===
-  const baseKey = nombre.trim().toLowerCase();
-  const cantidadKey = cantidad ? cantidad.trim().toLowerCase() : "";
-  const comboKey = numCombo ? `combo-${numCombo}` : "";
-  const promoKey = numPromocion ? `promo-${numPromocion}` : "";
+  let displayName = cantidad !== "0" ? `${nombre} ${cantidad}` : nombre
 
-  // Prioridad: numCombo > numPromocion > nombre+cantidad > nombre
-  const itemKey = comboKey || promoKey || (cantidadKey ? `${baseKey}-${cantidadKey}` : baseKey);
+  if (nombre === "Sin nombre" && cantidad === "0") {
+    displayName = descripcion
+  }
 
-  // === Verificar si está en el carrito ===
-  const isInCart = cart.some((cartItem) => {
-    const cartNombre = (cartItem.nombre || "").trim().toLowerCase();
-    const cartCantidad = (cartItem.cantidad || "").trim().toLowerCase();
-    const cartCombo = cartItem.numCombo ? `combo-${cartItem.numCombo}` : "";
-    const cartPromo = cartItem.numPromocion ? `promo-${cartItem.numPromocion}` : "";
+  const itemKey = numPromocion || numCombo || displayName.trim().toLowerCase()
 
-    const cartKey = cartCombo || cartPromo || (cartCantidad ? `${cartNombre}-${cartCantidad}` : cartNombre);
-    return cartKey === itemKey;
-  });
+  console.log(cart)
 
-  const displayName = cantidad ? `${nombre} ${cantidad}` : nombre;
+  const isInCart = cart.some((cartItem) => cartItem === itemKey)
 
   return (
     <li key={itemKey} className="food">
@@ -51,23 +40,20 @@ export const Item = ({ element }) => {
           alt={`Imagen de ${displayName}`}
           loading="lazy"
           onError={(e) => {
-            e.target.src = "/placeholder.jpg";
+            e.target.src = "/placeholder.jpg"
           }}
         />
-        <figcaption className="food__actions">
-          {isInCart ? (
-            <Toogle itemKey={itemKey} />
-          ) : (
-            <BtnCart itemKey={itemKey} />
-          )}
-        </figcaption>
+        {isInCart ? (
+          <Toogle item={itemKey} nombre={displayName} />
+        ) : (
+          <BtnCart item={itemKey} nombre={displayName} />
+        )}
       </figure>
 
       <div className="food__info">
         <h3 className="food__name">{displayName}</h3>
-        {descripcion && <p className="food__description">{descripcion}</p>}
         <span className="food__price">${costo.toFixed(2)}</span>
       </div>
     </li>
-  );
-};
+  )
+}

@@ -11,6 +11,8 @@ export function ListCart({ data }) {
   const { cart } = useContext(CartContext)
   const [statePay, setStatePay] = useState(false)
 
+  console.log({ cart })
+
   useEffect(() => {
     setPay(0)
     data.map(el => {
@@ -35,7 +37,6 @@ export function ListCart({ data }) {
       </span>
       <p className="ads">
         <IconCarbonNeutral />
-        This is a <strong>carbon-neutral</strong> delivery
       </p>
       <button className='btn--confirm' onClick={() => setStatePay(true)}>Confirm order</button>
       {statePay && <ModalBuy handleClick={handleClick} pay ={pay}/>}

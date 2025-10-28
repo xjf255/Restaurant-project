@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const CartContext = createContext({
   cart: [],
   removeToCart: ({ item, numItems }) => { item, numItems },
-  addToCart: ({ item }) => { item }
+  addToCart: ({ item, nombre }) => { item, nombre }
 })
 
 export const CartProvider = ({ children }) => {
@@ -23,7 +23,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cart", [...newCart])
   }
 
-  const addToCart = ({ item }) => {
+  const addToCart = ({ item, nombre }) => {
     if (item && !Array.isArray(item)) {
       const newCart = [...cart, item]
       setCart(newCart)
