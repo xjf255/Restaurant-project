@@ -7,7 +7,7 @@ export const AdminLogout = () => {
     navigate("/admin/login", { replace: true });
   };
   return (
-    <button onClick={onLogout} className="authAdmin__logoutBtn">
+    <button onClick={onLogout} className="authAdmin__logoutBtn" style={{width:"200px"}}>
       Cerrar sesión
     </button>
   );

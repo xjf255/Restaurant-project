@@ -1,10 +1,12 @@
-import { useContext } from "react"
+import { useContext, useMemo } from "react"
 import { CartContext } from "../context/cart"
 import { IconDecrementCuantity, IconIncrementCuantity } from "./Icons"
 
 export const Toogle = ({ item, category }) => {
   const { addToCart, removeFromCart, cart } = useContext(CartContext)
-  const itemCount = cart.filter(cartItem => cartItem === item).length
+  const itemCount = useMemo(() => {
+    return cart.filter((c) => c.id === item).length;
+  }, [cart, item])
 
   return (
     <div className="toogle cuantity__cart">

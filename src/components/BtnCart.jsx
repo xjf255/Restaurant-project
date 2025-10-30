@@ -12,7 +12,7 @@ export const BtnCart = ({ item, category }) => {
       onClick={() => addToCart({ item, category })}
     >
       <IconCart />
-      <strong>Add to cart</strong>
+      <strong>Agregar al pedido</strong>
     </button>
   )
 }

@@ -1,0 +1,161 @@
+.adminOrders {
+  padding: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.adminOrders__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.adminOrders__filters select {
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+}
+
+.adminOrders__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.adminOrders__table th,
+.adminOrders__table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.adminOrders__row {
+  cursor: pointer;
+}
+
+.adminOrders__row:hover {
+  background: #f3f4f6;
+}
+
+.adminOrders__error {
+  color: #dc2626;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 0.01em;
+  background: #d1d5db;
+  color: #111827;
+}
+
+.pill--pendiente {
+  background: #f97316;
+  color: #fff;
+}
+.pill--confirmado {
+  background: #38bdf8;
+  color: #fff;
+}
+.pill--en_preparacion,
+.pill--en-preparacion {
+  background: #facc15;
+  color: #fff;
+}
+.pill--en_camino,
+.pill--en-camino {
+  background: #6366f1;
+  color: #fff;
+}
+.pill--entregado {
+  background: #22c55e;
+  color: #fff;
+}
+.pill--cancelado {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* modal */
+.adminOrders__modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  inset: 0;
+  border: none;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.adminOrders__modal-body {
+  background: #fff;
+  width: min(92vw, 680px);
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 1rem;
+  padding: 1.25rem 1.25rem 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.adminOrders__modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.adminOrders__close {
+  border: none;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.adminOrders__section {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 0.8rem;
+}
+
+.adminOrders__items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.adminOrders__item {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: #f9fafb;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .adminOrders__table {
+    font-size: 0.8rem;
+  }
+  .adminOrders__modal-body {
+    width: 96vw;
+  }
+}

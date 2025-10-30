@@ -19,7 +19,7 @@ export function Cart({category}) {
 
   return (
     <aside>
-      <h2>Your Cart ({cart.length})</h2>
+      <h2>Tu carrito ({cart.length})</h2>
       {
         cart.length === 0
           ? <Empty />

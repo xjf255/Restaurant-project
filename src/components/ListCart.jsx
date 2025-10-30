@@ -5,9 +5,10 @@ import { ItemCart } from "./ItemCart";
 import { ModalBuy } from "./ModalBuy";
 import { UserContext } from "../context/user";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export function ListCart() {
-  const { cart, catalog } = useContext(CartContext);
+  const { cart, catalog, clearCart } = useContext(CartContext);
   const { client } = useContext(UserContext)
   const navigate = useNavigate()
   const [statePay, setStatePay] = useState(false);
@@ -24,7 +25,6 @@ export function ListCart() {
         const meta = catalog[key];
         if (!meta) return null;
 
-        // Obtener la categoría del primer elemento que coincida en el carrito
         const found = cart.find((c) => c.id === key);
         const category = found?.category || meta?.category || "sin-categoria";
 
@@ -33,19 +33,27 @@ export function ListCart() {
       .filter(Boolean);
   }, [uniqueKeys, catalog, cart]);
 
-  const totalPay = useMemo(
-    () => matched.reduce((acc, { meta }) => acc + (meta.costo || 0), 0),
-    [matched]
-  );
+  const totalPay = useMemo(() => {
+    return matched.reduce((acc, { key, meta }) => {
+      const quantity = cart.filter((c) => c.id === key).length;
+      return acc + (meta.costo || 0) * quantity;
+    }, 0);
+  }, [matched, cart]);
 
 
   const handleOrderConfirm = async (payload) => {
-    await fetch(`${API_URL}/pedidos`, {
+    const data = await fetch(`${API_URL}/pedidos`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
-    // limpiar carrito, mostrar toast, etc.
+    if (!data.ok) {
+      return toast.error("Error al realizar el pedido");
+    }
+    const result = await data.json();
+    const orderId = result.numPedido;
+    toast.success("Pedido realizado con éxito, su número de pedido es: " + orderId);
+    clearCart();
   };
 
 
@@ -64,7 +72,7 @@ export function ListCart() {
   return (
     <>
       {matched.map(({ key, meta, category }) => (
-        <ItemCart key={key} element={{ ...meta, costo: meta.costo, img: meta.img, nombre: meta.nombre,category }} itemId={key} />
+        <ItemCart key={key} element={{ ...meta, costo: meta.costo, img: meta.img, nombre: meta.nombre, category }} itemId={key} />
       ))}
 
       <span className="total__pay">
@@ -73,7 +81,7 @@ export function ListCart() {
       </span>
 
       <button className="btn--confirm" onClick={handleClickNotClient}>
-        Confirm order
+        Confirmar orden
       </button>
 
       {statePay && <ModalBuy handleClick={handleClick} pay={totalPay} matched={matched} onConfirm={handleOrderConfirm} />}

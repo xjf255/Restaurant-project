@@ -24,7 +24,8 @@ export const Item = ({ element, category }) => {
     displayName = descripcion
   }
   const itemKey = numPromocion || numCombo || displayName.trim().toLowerCase()
-  const isInCart = cart.some((cartItem) => cartItem === itemKey)
+
+  const isInCart = cart.some((cartItem) => cartItem.id === itemKey);
 
   return (
     <li key={itemKey} className="food">

@@ -1,11 +1,15 @@
+import { AdminOrders } from "../pages/AdminOrders"
 import { AdminLogout } from "./AdminLogout"
 
 export const AdminDashboard = () => {
   return (
     <div>
-      <AdminLogout />
-      <h1>Admin Dashboard</h1>
-      {/* Aquí puedes agregar más componentes o funcionalidades del panel de administración */}
+      <header style={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"10px 20px", borderBottom:"1px solid #000"}}>
+        <h1>Admin Dashboard</h1>
+        <AdminLogout />
+      </header>
+
+      <AdminOrders />
     </div>
   )
 }
