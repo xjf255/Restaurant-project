@@ -11,22 +11,46 @@ export function ListCart() {
   const { client } = useContext(UserContext)
   const navigate = useNavigate()
   const [statePay, setStatePay] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
-  const uniqueKeys = useMemo(() => Array.from(new Set(cart)), [cart]);
-  const matched = useMemo(
-    () => uniqueKeys.map(key => ({ key, meta: catalog[key] })).filter(x => !!x.meta),
-    [uniqueKeys, catalog]
+  const uniqueKeys = useMemo(
+    () => Array.from(new Set(cart.map((c) => c.id))),
+    [cart]
   );
+
+  const matched = useMemo(() => {
+    return uniqueKeys
+      .map((key) => {
+        const meta = catalog[key];
+        if (!meta) return null;
+
+        // Obtener la categoría del primer elemento que coincida en el carrito
+        const found = cart.find((c) => c.id === key);
+        const category = found?.category || meta?.category || "sin-categoria";
+
+        return { key, meta, category };
+      })
+      .filter(Boolean);
+  }, [uniqueKeys, catalog, cart]);
 
   const totalPay = useMemo(
     () => matched.reduce((acc, { meta }) => acc + (meta.costo || 0), 0),
     [matched]
   );
 
+
+  const handleOrderConfirm = async (payload) => {
+    await fetch(`${API_URL}/pedidos`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    // limpiar carrito, mostrar toast, etc.
+  };
+
+
   const handleClick = (e) => {
-    if (e.target.matches("dialog.shadow") || e.target.matches("svg") || e.target.matches("path")) {
-      setStatePay(false);
-    }
+    setStatePay(false);
   };
 
   const handleClickNotClient = () => {
@@ -39,8 +63,8 @@ export function ListCart() {
 
   return (
     <>
-      {matched.map(({ key, meta }) => (
-        <ItemCart key={key} element={{ ...meta, costo: meta.costo, img: meta.img, nombre: meta.nombre }} itemId={key} />
+      {matched.map(({ key, meta, category }) => (
+        <ItemCart key={key} element={{ ...meta, costo: meta.costo, img: meta.img, nombre: meta.nombre,category }} itemId={key} />
       ))}
 
       <span className="total__pay">
@@ -52,7 +76,7 @@ export function ListCart() {
         Confirm order
       </button>
 
-      {statePay && <ModalBuy handleClick={handleClick} pay={totalPay} />}
+      {statePay && <ModalBuy handleClick={handleClick} pay={totalPay} matched={matched} onConfirm={handleOrderConfirm} />}
     </>
   );
 }

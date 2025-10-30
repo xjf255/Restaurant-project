@@ -6,8 +6,9 @@ export function ItemCart({ element, itemId }) {
   const { nombre, descripcion, costo:price } = element
   const { cart, removeFromCart } = useContext(CartContext)
   const name = nombre ? nombre : descripcion
+
   const quantity = useMemo(() => {
-    return cart.filter(cartItem => cartItem === itemId).length
+    return cart.filter((c) => c.id === itemId).length;
   }, [cart, itemId])
 
   const handleRemove = () => {

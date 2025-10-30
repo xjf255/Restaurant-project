@@ -14,7 +14,7 @@ export default function Login() {
 
   return (
     <section className="login">
-      <div className="form" style={type === LOGIN[1] ? { height: "440px" } : { height: "380px" }}>
+      <div className="form">
         <div className="form__toogle">
           {LOGIN.map(el => <button key={el} onClick={() => handleClick(el)} className={type === el ? "active" : ""} >{el}</button>)}
         </div>

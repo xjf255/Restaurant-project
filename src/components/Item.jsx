@@ -3,7 +3,7 @@ import { BtnCart } from "./BtnCart"
 import { Toogle } from "./Toogle"
 import { CartContext } from "../context/cart"
 
-export const Item = ({ element }) => {
+export const Item = ({ element, category }) => {
   const { cart } = useContext(CartContext)
   const {
     nombre = "Sin nombre",
@@ -38,9 +38,9 @@ export const Item = ({ element }) => {
           }}
         />
         {isInCart ? (
-          <Toogle item={itemKey} />
+          <Toogle item={itemKey} category={category} />
         ) : (
-          <BtnCart item={itemKey} />
+          <BtnCart item={itemKey} category={category}/>
         )}
       </figure>
 

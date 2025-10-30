@@ -30,7 +30,7 @@ export const SignIn = () => {
           const user = await response.json();
           addClient(user);
           toast.success(`Bienvenid@ ${user.nombre} ${user.apellido}`);
-          navigate('/promociones');
+          navigate('/combos');
         } catch (error) {
           toast.error(error.message);
         }

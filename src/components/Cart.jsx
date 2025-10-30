@@ -3,7 +3,7 @@ import { CartContext } from "../context/cart";
 import { Empty } from "./Empty";
 import { ListCart } from "./ListCart";
 
-export function Cart() {
+export function Cart({category}) {
 
   const { cart, addToCart } = useContext(CartContext)
 

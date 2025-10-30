@@ -24,8 +24,7 @@ export default function App() {
         <Suspense fallback={<Loader />} >
           <Routes>
             <Route element={<Header />} >
-              <Route path='/' element={<Navigate to={"promociones"} />} />
-              <Route path='/promociones' element={<MenuSection />} />
+              <Route path='/' element={<Navigate to={"combos"} />} />
               <Route path='/combos' element={<MenuSection />} />
               <Route path='/hamburguesas' element={<MenuSection />} />
               <Route path='/bebidas' element={<MenuSection />} />

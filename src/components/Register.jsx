@@ -14,8 +14,8 @@ const isNIT = (v) => /^\d{1,12}-?[0-9K]$/i.test(v.trim());
 export const Register = () => {
   const { addClient } = useContext(UserContext);
   const navigate = useNavigate();
-  const formRef = useRef < HTMLFormElement > (null);
-  const URL = import.meta.env.VITE_USER_URL;
+  const formRef = useRef(null);
+  const URL = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false);
 
   const registerClick = (e) => {
@@ -32,13 +32,12 @@ export const Register = () => {
       telefono: String(form.get("telefono") || "").replace(/\D/g, ""),
       prefijoTelefono: String(form.get("prefijoTelefono") || "").trim(),
       Email: String(form.get("email") || "").trim(),
-      nit: String(form.get("nit") || "").toUpperCase().trim(),
-      password: String(form.get("password") || "").trim(),
+      nit: String(form.get("nit") || "").toUpperCase().trim()
     };
 
     if (!payload.dpi || !payload.nombre || !payload.apellido || !payload.direccion ||
       !payload.telefono || !payload.prefijoTelefono || !payload.Email ||
-      !payload.nit || !payload.password) {
+      !payload.nit) {
       return toast.warning("Completa todos los campos obligatorios.");
     }
 
@@ -66,9 +65,6 @@ export const Register = () => {
     if (!isNIT(payload.nit)) {
       return toast.error("NIT inválido. Ej: 1234567-8 o 1234567K");
     }
-    if (payload.password.length < 6) {
-      return toast.error("La contraseña debe tener al menos 6 caracteres.");
-    }
 
     const body = {
       dpi: payload.dpi,
@@ -84,7 +80,7 @@ export const Register = () => {
     const submit = async () => {
       try {
         setLoading(true);
-        const res = await fetch(URL, {
+        const res = await fetch(`${URL}/clientes`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
@@ -94,7 +90,7 @@ export const Register = () => {
         toast.success("Usuario creado con éxito");
         const user = await res.json();
         addClient(user);
-        navigate("/promociones");
+        navigate("/combos");
       } catch (err) {
         toast.error(err?.message || "No se pudo registrar");
       } finally {

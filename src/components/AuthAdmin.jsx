@@ -1,4 +1,4 @@
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const ADMIN_USER = import.meta.env.VITE_ADMIN_USER ?? "";
@@ -36,7 +36,7 @@ export const AuthAdmin = () => {
   };
 
   return (
-    <Form method="post" onSubmit={handleSubmit} className="authAdmin">
+    <form method="post" onSubmit={handleSubmit} className="authAdmin">
       <h2 className="authAdmin__title">Acceso de Administrador</h2>
 
       <label className="authAdmin__label">
@@ -64,6 +64,6 @@ export const AuthAdmin = () => {
       {error && <p className="authAdmin__error">{error}</p>}
 
       <button type="submit" className="authAdmin__btn">Ingresar</button>
-    </Form>
+    </form>
   );
 };

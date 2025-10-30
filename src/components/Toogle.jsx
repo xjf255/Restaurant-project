@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { CartContext } from "../context/cart"
 import { IconDecrementCuantity, IconIncrementCuantity } from "./Icons"
 
-export const Toogle = ({ item, nombre }) => {
+export const Toogle = ({ item, category }) => {
   const { addToCart, removeFromCart, cart } = useContext(CartContext)
   const itemCount = cart.filter(cartItem => cartItem === item).length
 
@@ -19,7 +19,7 @@ export const Toogle = ({ item, nombre }) => {
       </span>
       <i 
         className="toogle__cuantity--less" 
-        onClick={() => addToCart({ item })}
+        onClick={() => addToCart({ item, category})}
       >
         <IconIncrementCuantity />
       </i>

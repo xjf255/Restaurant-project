@@ -5,7 +5,7 @@ import getDay from '../services/getDay';
 export const Pay = ({ method, coupon, pay }) => {
   const [loading, setLoading] = useState(false);
   const day = getDay();
-  const URL = import.meta.env.VITE_PAY_URL;
+  const URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const generatedBill = async () => {

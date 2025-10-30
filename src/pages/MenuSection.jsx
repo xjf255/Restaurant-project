@@ -24,7 +24,7 @@ export default function MenuSection() {
       {isLoading && <p>Loading...</p>}
       {isError && <p>Ha habido un error</p>}
       {data && data.length > 0 ? (
-        <Main data={data} />
+        <Main data={data} category={category}/>
       ) : (
         <p>No hay elementos para mostrar.</p>
       )}
