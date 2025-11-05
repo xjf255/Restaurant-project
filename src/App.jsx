@@ -11,6 +11,7 @@ import { UserProvider } from './context/user'
 import { AuthAdmin } from './components/AuthAdmin'
 import { RequireAdmin } from './components/RequireAdmin'
 import { AdminDashboard } from './components/AdminDashboard'
+import { MapLeaflet } from './components/MapLeaflet'
 
 export default function App() {
 
@@ -42,6 +43,7 @@ export default function App() {
           </Routes>
         </Suspense>
         <Toaster richColors />
+        <MapLeaflet />
       </UserProvider>
     </CartProvider>
   )
