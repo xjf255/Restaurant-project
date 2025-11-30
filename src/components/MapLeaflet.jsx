@@ -2,7 +2,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from "react-leaf
 import "../styles/Map.css";
 import { useState } from "react";
 import { Icon } from "leaflet";
-import market from "../../public/assets/market.png";
+import market from "/assets/market.png?.url";
 
 const RESTAURANT_POSITION = [14.5570, -90.7346];
 

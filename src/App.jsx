@@ -1,23 +1,18 @@
 import './styles/App.css'
 import { Header } from './components/Header'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense } from 'react'
 import { Loader } from './components/Loader'
 import { Toaster } from 'sonner'
-import ProtectedRoutes from './components/ProtectedRoutes'
 import { CartProvider } from './context/cart'
 import Login from './pages/Login'
 import { UserProvider } from './context/user'
 import { AuthAdmin } from './components/AuthAdmin'
 import { RequireAdmin } from './components/RequireAdmin'
 import { AdminDashboard } from './components/AdminDashboard'
-import { MapLeaflet } from './components/MapLeaflet'
 
 export default function App() {
-
   const MenuSection = lazy(() => import('./pages/MenuSection'))
-  const Coupons = lazy(() => import('./pages/Coupons'))
-  const Invoice = lazy(() => import('./pages/Invoice'))
 
   return (
     <CartProvider>
@@ -43,7 +38,6 @@ export default function App() {
           </Routes>
         </Suspense>
         <Toaster richColors />
-        <MapLeaflet />
       </UserProvider>
     </CartProvider>
   )

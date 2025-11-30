@@ -2,6 +2,7 @@ import { useContext, useMemo, useState } from "react";
 import { UserContext } from "../context/user";
 import { CartContext } from "../context/cart";
 import "../styles/ModalBuy.css";
+import { MapLeaflet } from "./MapLeaflet";
 
 export const ModalBuy = ({
   handleClick,
@@ -17,61 +18,61 @@ export const ModalBuy = ({
   const [address, setAddress] = useState("");
 
   const orderItems = useMemo(() => {
-  return matched
-    .map(({ key, meta, category }) => {
-      const quantity = cart.filter((c) => c.id === key).length;
+    return matched
+      .map(({ key, meta, category }) => {
+        const quantity = cart.filter((c) => c.id === key).length;
 
-      // valores base
-      let numCombo = null;
-      let hamburguesa = null;
-      let bebidaNombre = null;
-      let bebidaCantidad = null;
-      let complemento = null;
+        // valores base
+        let numCombo = null;
+        let hamburguesa = null;
+        let bebidaNombre = null;
+        let bebidaCantidad = null;
+        let complemento = null;
 
-      // lógica por categoría
-      switch (category) {
-        case "combos":
-          numCombo = key;
-          break;
+        // lógica por categoría
+        switch (category) {
+          case "combos":
+            numCombo = key;
+            break;
 
-        case "hamburguesas":
-          hamburguesa = meta.nombre;
-          break;
+          case "hamburguesas":
+            hamburguesa = meta.nombre;
+            break;
 
-        case "bebidas": {
-          // dividir por espacios
-          const parts = (meta.key || meta.nombre || "").trim().split(/\s+/);
-          if (parts.length > 1) {
-            bebidaCantidad = parts.pop(); // último elemento
-            bebidaNombre = parts.join(" "); // el resto
-          } else {
-            bebidaNombre = meta.nombre;
-            bebidaCantidad = "1"; // valor por defecto
+          case "bebidas": {
+            // dividir por espacios
+            const parts = (meta.key || meta.nombre || "").trim().split(/\s+/);
+            if (parts.length > 1) {
+              bebidaCantidad = parts.pop(); // último elemento
+              bebidaNombre = parts.join(" "); // el resto
+            } else {
+              bebidaNombre = meta.nombre;
+              bebidaCantidad = "1"; // valor por defecto
+            }
+            break;
           }
-          break;
+
+          case "complementos":
+            complemento = meta.nombre;
+            break;
+
+          default:
+            break;
         }
 
-        case "complementos":
-          complemento = meta.nombre;
-          break;
-
-        default:
-          break;
-      }
-
-      return {
-        idProducto: key,
-        numCombo,
-        hamburguesa,
-        bebidaNombre,
-        bebidaCantidad,
-        complemento,
-        cantidad: quantity,
-        precioUnitario: meta.costo,
-      };
-    })
-    .filter((item) => item.cantidad > 0);
-}, [matched, cart]);
+        return {
+          idProducto: key,
+          numCombo,
+          hamburguesa,
+          bebidaNombre,
+          bebidaCantidad,
+          complemento,
+          cantidad: quantity,
+          precioUnitario: meta.costo,
+        };
+      })
+      .filter((item) => item.cantidad > 0);
+  }, [matched, cart]);
 
 
   const stop = (e) => e.stopPropagation();
@@ -102,7 +103,7 @@ export const ModalBuy = ({
     const payload = {
       dpiCliente: client?.dpi ?? "",
       direccionEntrega: finalAddress,
-      requireDelivery: finalAddress !== "Recoger en Tienda"? true : false,
+      requireDelivery: finalAddress !== "Recoger en Tienda" ? true : false,
       total: pay,
       items: orderItems,
     };
@@ -165,19 +166,7 @@ export const ModalBuy = ({
               <span>Ingresar otra dirección</span>
             </label>
 
-            {!useAccountAddress && address !== "Recoger en Tienda" && (
-              <div className="modalBuy__extraFields">
-                <div className="modalBuy__field">
-                  <label className="modalBuy__label">Dirección*</label>
-                  <input
-                    className="modalBuy__input"
-                    placeholder="Calle/Avenida, zona, referencias…"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </div>
-              </div>
-            )}
+            {!useAccountAddress && address !== "Recoger en Tienda" && <MapLeaflet />}
 
             <label className="modalBuy__option">
               <input

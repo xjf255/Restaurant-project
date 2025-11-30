@@ -6,7 +6,7 @@ export const Main = ({ data, category}) => {
     <main>
       <ul className="dessets">
         {data?.map(el =>
-          <Item element={el} category={category} />
+          <Item key={el} element={el} category={category} />
         )}
       </ul>
       <Cart />

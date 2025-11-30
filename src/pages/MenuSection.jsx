@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 import { Main } from "../components/Main"
-import { CartContext, CartProvider } from "../context/cart"
+import { CartContext } from "../context/cart"
 import useFetchAPI from "../hooks/useAPI"
 
 export default function MenuSection() {
