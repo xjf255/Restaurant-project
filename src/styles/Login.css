@@ -46,16 +46,23 @@
       align-items: center;
 
       & label {
-        padding: 20px;
+        margin: 20px;
         width: 90%;
         display: flex;
         flex-direction: column;
+        position: relative;
 
         &>input {
           margin-top: 8px;
           padding: 10px;
           border-radius: 6px;
           border-style: none;
+        }
+
+        &>span {
+          position: absolute;
+          left: 90%;
+          bottom: 2px;
         }
       }
 
