@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { AdminOrders } from "../pages/AdminOrders"
 import { AdminLogout } from "./AdminLogout"
 
@@ -8,7 +9,10 @@ export const AdminDashboard = () => {
         <h1>Admin Dashboard</h1>
         <AdminLogout />
       </header>
-
+      <ul>
+        <Link to="/admin/pedidos">Pedidos</Link>
+        <Link to="/admin/combos">ombos</Link>
+      </ul>
       <AdminOrders />
     </div>
   )

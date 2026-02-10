@@ -7,7 +7,6 @@ import { Toaster } from 'sonner'
 import { CartProvider } from './context/cart'
 import Login from './pages/Login'
 import { UserProvider } from './context/user'
-import { AuthAdmin } from './components/AuthAdmin'
 import { RequireAdmin } from './components/RequireAdmin'
 import { AdminDashboard } from './components/AdminDashboard'
 
@@ -27,7 +26,6 @@ export default function App() {
               <Route path='/extras' element={<MenuSection />} />
             </Route>
             <Route path='/registration' element={<Login />} />
-            <Route path="/admin/login" element={<AuthAdmin />} />
             <Route path="/admin"
               element={
                 <RequireAdmin>
