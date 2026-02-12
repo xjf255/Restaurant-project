@@ -78,11 +78,17 @@
       }
     }
 
-    &>span {
-      text-align: right;
-      padding-right: 30px;
+    .password--recover {
       color: var(--gray-blue);
-      scale: .9;
+      margin-block: 6px;
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
     }
   }
 }

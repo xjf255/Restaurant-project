@@ -1,7 +1,7 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from "react";
 
 export const CartContext = createContext({
-  cart: [],               // [{ id: string, category?: string }]
+  cart: [],
   catalog: {},
   upsertCatalog: () => {},
   addToCart: () => {},
@@ -11,14 +11,12 @@ export const CartContext = createContext({
 });
 
 export const CartProvider = ({ children }) => {
-  // === 1. Cargar carrito desde localStorage y normalizar ===
   const [cart, setCart] = useState(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("cart") || "[]");
 
       if (!Array.isArray(saved)) return [];
 
-      // normalizar: puede venir ["cb0001", "cb0001"] o [{id:"cb0001"}]
       return saved
         .map((item) => {
           if (typeof item === "string") {
@@ -27,7 +25,7 @@ export const CartProvider = ({ children }) => {
           if (item && typeof item === "object" && typeof item.id === "string") {
             return {
               id: item.id,
-              category: item.category, // puede venir
+              category: item.category,
             };
           }
           return null;
@@ -38,7 +36,6 @@ export const CartProvider = ({ children }) => {
     }
   });
 
-  // === 2. Catálogo global ===
   const [catalog, setCatalog] = useState(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("catalogIndex") || "{}");
@@ -48,7 +45,6 @@ export const CartProvider = ({ children }) => {
     }
   });
 
-  // persistencia
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
@@ -57,7 +53,6 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("catalogIndex", JSON.stringify(catalog));
   }, [catalog]);
 
-  // === misma lógica de Item para construir la key ===
   const getItemKey = (el) => {
     if (!el) return "";
     const {
@@ -76,7 +71,6 @@ export const CartProvider = ({ children }) => {
     return (numPromocion || numCombo || displayName.trim().toLowerCase()) ?? "";
   };
 
-  // === 3. upsertCatalog: ahora también guarda la category si viene en el item ===
   const upsertCatalog = useCallback((items = []) => {
     if (!Array.isArray(items) || items.length === 0) return;
 
@@ -99,7 +93,6 @@ export const CartProvider = ({ children }) => {
           nombre: el.nombre ?? el.descripcion ?? key,
           costo,
           img: el.img ?? "/placeholder.jpg",
-          // 👇 si el backend/FE te manda la categoría, la guardamos
           category:
             el.category ??
             el.categoria ??
@@ -123,7 +116,6 @@ export const CartProvider = ({ children }) => {
     });
   }, []);
 
-  // === 4. addToCart: ahora guarda también la categoría en cada entrada ===
   const addToCart = useCallback(
     ({ item, quantity = 1, category }) => {
       if (!item || typeof item !== "string") return;
@@ -133,7 +125,7 @@ export const CartProvider = ({ children }) => {
         .fill(null)
         .map(() => ({
           id: item,
-          category: category, // 👈 se guarda junto al item
+          category: category,
         }));
 
       setCart((prev) => [...prev, ...entries]);
@@ -141,7 +133,6 @@ export const CartProvider = ({ children }) => {
     []
   );
 
-  // === 5. removeFromCart: compara por id (no por objeto completo) ===
   const removeFromCart = useCallback(({ item, quantity }) => {
     if (!item || typeof item !== "string") return;
 
@@ -165,7 +156,6 @@ export const CartProvider = ({ children }) => {
 
   const getCartTotal = useCallback(() => cart.length, [cart]);
 
-  // memo del value
   const value = useMemo(
     () => ({
       cart,

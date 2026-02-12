@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom"
 import { UserContext } from "../context/user"
 import { EyeIcon } from "./EyeIcon"
 import { EyeClosed } from "./EyeClosed"
+import { AdminContext } from "../context/admin"
 
 export const SignIn = () => {
   const { addClient } = useContext(UserContext)
+  const { isAdmin, toggleAdmin } = useContext(AdminContext)
   const formRef = useRef()
   const API_URL = import.meta.env.VITE_API_URL
   const navigate = useNavigate()
@@ -14,10 +16,10 @@ export const SignIn = () => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (localStorage.getItem("isAdmin") === "true") {
+    if (isAdmin) {
       navigate("/admin", { replace: true });
     }
-  }, [navigate]);
+  }, [navigate, isAdmin]);
 
   const forgotPasswordClick = () => {
     navigate("/")
@@ -67,7 +69,7 @@ export const SignIn = () => {
       addClient(user)
 
       if (isAdmin) {
-        localStorage.setItem("isAdmin", "true");
+        toggleAdmin()
         navigate("/admin", { replace: true });
       } else {
         navigate("/combos")
@@ -114,7 +116,7 @@ export const SignIn = () => {
         </button>
       </form>
 
-      <button type="button" onClick={forgotPasswordClick} className="password--recover" style={{ background: "none", border: 0, padding: 0, cursor: "pointer" }}>
+      <button type="button" onClick={forgotPasswordClick} className="password--recover">
         Olvidaste tu Identificador?
       </button>
     </>
