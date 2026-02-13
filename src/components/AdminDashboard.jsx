@@ -11,7 +11,7 @@ export const AdminDashboard = () => {
       </header>
       <ul>
         <Link to="/admin/pedidos">Pedidos</Link>
-        <Link to="/admin/combos">ombos</Link>
+        <Link to="/admin/combos">Combos</Link>
       </ul>
       <AdminOrders />
     </div>

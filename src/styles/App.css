@@ -494,3 +494,21 @@ i {
   opacity: .9;
   transform: translateY(-1px);
 }
+
+.edit__btn{
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--rose50);
+  background: var(--gray-blue);
+  border: var(--gray-blue) 1px solid;
+  transition: opacity .15s, transform .05s;
+
+  &:hover {
+    opacity: .9;
+    transform: translateY(-1px);
+  }
+}

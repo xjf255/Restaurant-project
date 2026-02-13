@@ -1,4 +1,4 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { AdminContext } from "../context/admin";
 import { useContext } from "react";
 
@@ -9,5 +9,8 @@ export const RequireAdmin = ({ children }) => {
   if (!isAdmin) {
     return <Navigate to="/registration" replace state={{ from: loc }} />;
   }
-  return <>{children}</>;
+  return <>
+    {children}
+    <Outlet />
+  </>;
 };

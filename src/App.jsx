@@ -28,13 +28,20 @@ export default function App() {
                 <Route path='/extras' element={<MenuSection />} />
               </Route>
               <Route path='/registration' element={<Login />} />
-              <Route path="/admin"
+              <Route
+                path="admin"
                 element={
                   <RequireAdmin>
                     <AdminDashboard />
                   </RequireAdmin>
                 }
-              />
+              >
+                <Route index element={<Navigate to="combos" replace />} />
+                <Route path="combos" element={<MenuSection />} />
+                <Route path="hamburguesas" element={<MenuSection />} />
+                <Route path="bebidas" element={<MenuSection />} />
+                <Route path="extras" element={<MenuSection />} />
+              </Route>
             </Routes>
           </Suspense>
           <Toaster richColors />

@@ -2,9 +2,12 @@ import { useContext } from "react"
 import { BtnCart } from "./BtnCart"
 import { Toogle } from "./Toogle"
 import { CartContext } from "../context/cart"
+import { AdminContext } from "../context/admin"
+import { ConfigItem } from "./ConfigItem"
 
 export const Item = ({ element, category }) => {
   const { cart } = useContext(CartContext)
+  const { isAdmin } = useContext(AdminContext)
   const {
     nombre = "Sin nombre",
     img,
@@ -38,14 +41,18 @@ export const Item = ({ element, category }) => {
             e.target.src = "/placeholder.jpg"
           }}
         />
-        {isInCart ? (
+        {isAdmin ? (
+          <ConfigItem element={element} category={category} />
+        ) : isInCart ? (
           <Toogle item={itemKey} category={category} />
         ) : (
-          <BtnCart item={itemKey} category={category}/>
+          <BtnCart item={itemKey} category={category} />
         )}
+
       </figure>
 
       <div className="food__info">
+        <span className="food__category">{category}</span>
         <h3 className="food__name">{displayName}</h3>
         <span className="food__price">${costo.toFixed(2)}</span>
       </div>

@@ -6,6 +6,7 @@ import useFetchAPI from "../hooks/useAPI"
 export default function MenuSection() {
   const API_URL = import.meta.env.VITE_API_URL
   let path = window.location.pathname.toLowerCase()
+  path = path.startsWith("/admin") ? path.slice(6) : path
   path = path === "/extras" ? "/complementos" : path
 
   const category = path.slice(1)
@@ -24,7 +25,7 @@ export default function MenuSection() {
       {isLoading && <p>Loading...</p>}
       {isError && <p>Ha habido un error</p>}
       {data && data.length > 0 ? (
-        <Main data={data} category={category}/>
+        <Main data={data} category={category} />
       ) : (
         <p>No hay elementos para mostrar.</p>
       )}
