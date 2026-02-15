@@ -12,6 +12,9 @@ export const AdminDashboard = () => {
       <ul>
         <Link to="/admin/pedidos">Pedidos</Link>
         <Link to="/admin/combos">Combos</Link>
+        <Link to="/admin/hamburguesas">Hamburguesas</Link>
+        <Link to="/admin/bebidas">Bebidas</Link>
+        <Link to="/admin/extras">Extras</Link>
       </ul>
       <AdminOrders />
     </div>
