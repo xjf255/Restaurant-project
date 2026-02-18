@@ -10,6 +10,8 @@ import { UserProvider } from './context/user'
 import { RequireAdmin } from './components/RequireAdmin'
 import { AdminDashboard } from './components/AdminDashboard'
 import { AdminProvider } from './context/admin'
+import { AdminOrders } from './pages/AdminOrders'
+import { TITLES } from './constants'
 
 export default function App() {
   const MenuSection = lazy(() => import('./pages/MenuSection'))
@@ -20,7 +22,7 @@ export default function App() {
         <UserProvider>
           <Suspense fallback={<Loader />} >
             <Routes>
-              <Route element={<Header />} >
+              <Route element={<Header TitleList={Object.values(TITLES)} />} >
                 <Route path='/' element={<Navigate to={"combos"} />} />
                 <Route path='/combos' element={<MenuSection />} />
                 <Route path='/hamburguesas' element={<MenuSection />} />
@@ -38,6 +40,7 @@ export default function App() {
               >
                 <Route index element={<Navigate to="combos" replace />} />
                 <Route path="combos" element={<MenuSection />} />
+                <Route path="pedidos" element={<AdminOrders />} />
                 <Route path="hamburguesas" element={<MenuSection />} />
                 <Route path="bebidas" element={<MenuSection />} />
                 <Route path="extras" element={<MenuSection />} />

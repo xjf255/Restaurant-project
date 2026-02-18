@@ -109,7 +109,6 @@ export const AdminOrders = () => {
   return (
     <div className="adminOrders">
       <header className="adminOrders__header">
-        <h1>Pedidos</h1>
         <div className="adminOrders__filters">
           <label>Filtrar por estado:</label>
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>

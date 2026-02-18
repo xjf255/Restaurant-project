@@ -20,7 +20,7 @@ body {
   background-color: var(--rose100);
   padding: 75px !important;
   min-width: 320px;
-  width: 100vw;
+  width: 100% ;
   min-height: 100vh;
   content-visibility: auto;
 }

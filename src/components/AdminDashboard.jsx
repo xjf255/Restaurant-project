@@ -1,22 +1,13 @@
-import { Link } from "react-router-dom"
-import { AdminOrders } from "../pages/AdminOrders"
 import { AdminLogout } from "./AdminLogout"
+import { TITLES } from "../constants"
+import { Header } from "./Header"
 
 export const AdminDashboard = () => {
+  const updatedTitles = { ...TITLES, pedidos: "Pedidos" }
   return (
-    <div>
-      <header style={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"10px 20px", borderBottom:"1px solid #000"}}>
-        <h1>Admin Dashboard</h1>
-        <AdminLogout />
-      </header>
-      <ul>
-        <Link to="/admin/pedidos">Pedidos</Link>
-        <Link to="/admin/combos">Combos</Link>
-        <Link to="/admin/hamburguesas">Hamburguesas</Link>
-        <Link to="/admin/bebidas">Bebidas</Link>
-        <Link to="/admin/extras">Extras</Link>
-      </ul>
-      <AdminOrders />
-    </div>
+    <section className="adminOrders__header">
+      <AdminLogout />
+      <Header TitleList={Object.values(updatedTitles)} />
+    </section>
   )
 }

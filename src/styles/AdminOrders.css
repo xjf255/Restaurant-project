@@ -13,6 +13,21 @@
   margin-bottom: 1rem;
 }
 
+.adminList {
+  display: flex;
+  gap: 1rem;
+
+  &>* {
+    text-decoration: underline;
+    font-weight: 500;
+    text-transform: lowercase;
+    letter-spacing: 0.01em;
+    color: var(--gray-blue);
+  }
+}
+
+
+
 .adminOrders__filters select {
   padding: 0.35rem 0.6rem;
   border-radius: 0.5rem;
@@ -63,24 +78,29 @@
   background: #f97316;
   color: #fff;
 }
+
 .pill--confirmado {
   background: #38bdf8;
   color: #fff;
 }
+
 .pill--en_preparacion,
 .pill--en-preparacion {
   background: #facc15;
   color: #fff;
 }
+
 .pill--en_camino,
 .pill--en-camino {
   background: #6366f1;
   color: #fff;
 }
+
 .pill--entregado {
   background: #22c55e;
   color: #fff;
 }
+
 .pill--cancelado {
   background: #ef4444;
   color: #fff;
@@ -93,7 +113,7 @@
   height: 100vh;
   inset: 0;
   border: none;
-  background: rgba(0,0,0,.45);
+  background: rgba(0, 0, 0, .45);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -155,6 +175,7 @@
   .adminOrders__table {
     font-size: 0.8rem;
   }
+
   .adminOrders__modal-body {
     width: 96vw;
   }
