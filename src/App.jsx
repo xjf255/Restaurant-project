@@ -22,7 +22,7 @@ export default function App() {
         <UserProvider>
           <Suspense fallback={<Loader />} >
             <Routes>
-              <Route element={<Header TitleList={Object.values(TITLES)} />} >
+              <Route element={<Header TitleList={TITLES} />} >
                 <Route path='/' element={<Navigate to={"combos"} />} />
                 <Route path='/combos' element={<MenuSection />} />
                 <Route path='/hamburguesas' element={<MenuSection />} />

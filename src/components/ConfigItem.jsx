@@ -8,8 +8,8 @@ import {
   Stack,
   TextField,
   Typography,
-} from "@mui/material";
-import { useState, useEffect } from "react";
+} from "@mui/material"
+import { useState, useEffect } from "react"
 
 const modalSx = {
   position: "absolute",
@@ -23,58 +23,62 @@ const modalSx = {
   borderRadius: 3,
   boxShadow: 24,
   p: 2.5,
-};
+}
 
-export const ConfigItem = ({ element, category, onSave, onDelete }) => {
-  const [open, setOpen] = useState(false);
-  const [data, setData] = useState({ ...element });
-  const [saving, setSaving] = useState(false);
+export const ConfigItem = ({ element, category }) => {
+  const [open, setOpen] = useState(false)
+  const [data, setData] = useState({ ...element })
+  const [saving, setSaving] = useState(false)
+  const API_URL = import.meta.env.VITE_API_URL
 
   useEffect(() => {
-    setData({ ...element });
-  }, [element]);
+    setData({ ...element })
+  }, [element])
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
-  const nombre = data?.nombre ?? "";
-  const descripcion = data?.descripcion ?? "";
-  const img = data?.img ?? "";
-  const costo = data?.costo ?? "";
+  const nombre = data?.nombre ?? ""
+  const descripcion = data?.descripcion ?? ""
+  const img = data?.img ?? ""
+  const costo = data?.costo ?? ""
 
   const costoNumber =
-    costo === "" ? "" : Number(String(costo).replace(",", "."));
-  const costoError = costo !== "" && !Number.isFinite(costoNumber);
+    costo === "" ? "" : Number(String(costo).replace(",", "."))
+  const costoError = costo !== "" && !Number.isFinite(costoNumber)
 
-  const canSave = String(nombre).trim() !== "" && !costoError;
+  const canSave = String(nombre).trim() !== "" && !costoError
 
   const handleSave = async () => {
-    if (!canSave) return;
+    if (!canSave) return
     try {
-      setSaving(true);
+      setSaving(true)
 
       const payload = {
         ...data,
         costo: costo === "" ? null : Number(costoNumber),
         category,
-      };
+      }
 
-      await onSave?.(payload);
-      handleClose();
+      await onSave?.(payload)
+      handleClose()
     } finally {
-      setSaving(false);
+      setSaving(false)
     }
-  };
+  }
 
   const handleDelete = async () => {
     try {
-      setSaving(true);
-      await onDelete?.({ ...data, category });
-      handleClose();
+      setSaving(true)
+      const removeItem = await fetch(`${API_URL}${category}/${element.id}`, {
+        method: "DELETE",
+      })
+      if (!removeItem.ok) throw new Error("Error al eliminar el elemento")
+      handleClose()
     } finally {
-      setSaving(false);
+      setSaving(false)
     }
-  };
+  }
 
   return (
     <>
@@ -93,7 +97,6 @@ export const ConfigItem = ({ element, category, onSave, onDelete }) => {
         aria-labelledby="config-item-title"
       >
         <Box sx={modalSx}>
-          {/* Header */}
           <Stack
             direction="row"
             alignItems="center"
@@ -105,7 +108,7 @@ export const ConfigItem = ({ element, category, onSave, onDelete }) => {
                 Editar elemento
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Categoría: {category?.nombre ?? category?.name ?? "—"}
+                Categoría: {category ?? "—"}
               </Typography>
             </Box>
 
@@ -115,7 +118,6 @@ export const ConfigItem = ({ element, category, onSave, onDelete }) => {
 
           <Divider sx={{ mb: 2 }} />
 
-          {/* Form */}
           <Stack spacing={2}>
             <TextField
               label="Nombre"
@@ -158,7 +160,6 @@ export const ConfigItem = ({ element, category, onSave, onDelete }) => {
               placeholder="https://..."
             />
 
-            {/* Preview opcional */}
             {String(img).trim() !== "" ? (
               <Box
                 sx={{
@@ -175,7 +176,7 @@ export const ConfigItem = ({ element, category, onSave, onDelete }) => {
                   alt={nombre || "preview"}
                   style={{ width: "100%", display: "block", maxHeight: 220, objectFit: "cover" }}
                   onError={(e) => {
-                    (e.currentTarget).style.display = "none";
+                    (e.currentTarget).style.display = "none"
                   }}
                 />
               </Box>
@@ -184,7 +185,6 @@ export const ConfigItem = ({ element, category, onSave, onDelete }) => {
 
           <Divider sx={{ my: 2.5 }} />
 
-          {/* Actions */}
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={1.2}
@@ -222,5 +222,5 @@ export const ConfigItem = ({ element, category, onSave, onDelete }) => {
         </Box>
       </Modal>
     </>
-  );
-};
+  )
+}

@@ -9,6 +9,8 @@ export default function MenuSection() {
   path = path.startsWith("/admin") ? path.slice(6) : path
   path = path === "/extras" ? "/complementos" : path
 
+  console.log("Ruta actual:", path)
+
   const category = path.slice(1)
   const api = `${API_URL}${path}`
   const { isLoading, data, isError } = useFetchAPI({ api, key: category })

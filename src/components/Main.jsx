@@ -4,7 +4,6 @@ import { Item } from "./Item"
 import { AdminContext } from "../context/admin";
 
 export const Main = ({ data, category }) => {
-  console.log("Main data:", data);
   const { isAdmin } = useContext(AdminContext)
   return (
     <main>
