@@ -24,7 +24,6 @@ export const Header = (TitleList) => {
           {!client ? <NavLink className="register" to={"/registration"}>Registrarse</NavLink> : <BtnCliente />}
         </div>
       </section>
-      <Outlet />
     </>
   )
 }

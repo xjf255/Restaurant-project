@@ -1,6 +1,6 @@
-export const getIdentifier = (category, data) => {
+export const getId = (category, data) => {
   if (category === "bebidas") {
-    return [data.nombre, data.costo].join("-").toLowerCase()
+    return [data.nombre, data.cantidad].join("/").toLowerCase()
   }
   if (category === "combos") {
     return data.numCombo.toString()

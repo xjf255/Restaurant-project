@@ -8,7 +8,7 @@ import { AdminContext } from "../context/admin"
 
 export const SignIn = () => {
   const { addClient } = useContext(UserContext)
-  const { isAdmin, toggleAdmin } = useContext(AdminContext)
+  const { isAdmin, toggleAdmin, setAdminToken } = useContext(AdminContext)
   const formRef = useRef()
   const API_URL = import.meta.env.VITE_API_URL
   const navigate = useNavigate()
@@ -55,7 +55,7 @@ export const SignIn = () => {
 
       const responseAuth = await response.json()
       const { token, dpi, isAdmin } = responseAuth
-
+      setAdminToken(isAdmin ? token : null)
       const userResponse = await fetch(`${API_URL}/clientes/${encodeURIComponent(dpi)}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

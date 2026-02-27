@@ -9,7 +9,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+import { getId } from "../utils/Id"
+import { UserContext } from "../context/user"
 
 const modalSx = {
   position: "absolute",
@@ -29,6 +31,7 @@ export const ConfigItem = ({ element, category }) => {
   const [open, setOpen] = useState(false)
   const [data, setData] = useState({ ...element })
   const [saving, setSaving] = useState(false)
+  const { token } = useContext(UserContext)
   const API_URL = import.meta.env.VITE_API_URL
 
   useEffect(() => {
@@ -70,8 +73,9 @@ export const ConfigItem = ({ element, category }) => {
   const handleDelete = async () => {
     try {
       setSaving(true)
-      const removeItem = await fetch(`${API_URL}${category}/${element.id}`, {
+      const removeItem = await fetch(`${API_URL}/${category}/${getId(category, element)}`, {
         method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
       })
       if (!removeItem.ok) throw new Error("Error al eliminar el elemento")
       handleClose()
