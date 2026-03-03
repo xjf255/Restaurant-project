@@ -6,17 +6,13 @@
 .header__container {
   position: relative;
   background-color: var(--rose100);
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  justify-content: space-around;
 
   .header {
     height: 50px;
     display: flex;
-    gap: 20px;
+    gap: 40px;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 
     &>a {
       text-decoration: none;
@@ -56,7 +52,7 @@
 
 }
 
-.btn__cliente{
+.btn__cliente {
   width: 200px;
   text-decoration: none;
   padding: 12px;
@@ -433,7 +429,7 @@ i {
   border: 1px solid #e5e7eb;
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .06);
 }
 
 .authAdmin__title {
@@ -461,8 +457,9 @@ i {
 }
 
 .authAdmin__input:focus {
-  border-color: #f97316; /* naranja */
-  box-shadow: 0 0 0 3px rgba(249,115,22,.2);
+  border-color: #f97316;
+  /* naranja */
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, .2);
 }
 
 .authAdmin__error {
@@ -491,7 +488,7 @@ i {
   transform: translateY(-1px);
 }
 
-.edit__btn{
+.edit__btn {
   width: 100%;
   border: none;
   border-radius: 10px;

@@ -11,6 +11,5 @@ export const RequireAdmin = ({ children }) => {
   }
   return <>
     {children}
-    <Outlet />
   </>;
 };
